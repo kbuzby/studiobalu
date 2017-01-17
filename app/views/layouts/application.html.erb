@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Studiobalu</title>
+    <title>Studio Balu Designs</title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -9,6 +9,51 @@
   </head>
 
   <body>
-    <%= yield %>
+    <div class="container well">
+
+      <a href="/"><%=image_tag image_url("logo.jpg")%></a>
+      <nav class="navbar navbar-inverse">
+        <div class="container">
+          <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" arai_controls="navbar">
+              <span class="sr-only">Toggle Navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li class=<%=is_active('index')%>><a href="/">Home</a></li>
+              <li class=<%=is_active('about')%>><a href="/about">About Us</a></li>
+              <li class=<%=is_active('contact')%>><a href="/contact">Contact Us</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspoup="true" aria-expanded="false">Products <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Plates</a></li>
+                  <li><a href="#">Vases</a></li>
+                  <li><a href="#">Deco</a></li>
+                  <li><a href="#">Cheese Trays</a></li>
+                  <li><a href="#">Recycled Bottles</a></li>
+                  <li><a href="#">Coasters</a></li>
+                  <li><a href="#">Wind Chimes</a></li>
+                  <li><a href="#">Jewelery</a></li>
+                </ul>
+              </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="#">View Cart</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <%= yield %>
+
+    </div>
+
+    <footer>
+
+    </footer>
   </body>
 </html>

@@ -13,3 +13,13 @@
  *= require_tree .
  *= require_self
  */
+
+@import "bootstrap";
+
+body {
+  padding-top: 20px;
+}
+
+.navbar-nav.navbar-right:last-child {
+  margin-right: 20px;
+}
