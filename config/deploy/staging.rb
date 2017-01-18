@@ -33,7 +33,7 @@ server 'www.kylebuzby.com', user: 'ruby-deploy', roles: %w{web app}
 # For available Capistrano configuration variables see the documentation page.
 # http://capistranorb.com/documentation/getting-started/configuration/
 # Feel free to add new variables to customise your setup.
-
+set :linked_files, fetch(:linked_files, []).push('db/staging.sqlite3')
 
 
 # Custom SSH Options
