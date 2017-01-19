@@ -1,0 +1,12 @@
+<%= form_for @product, html: { multipart: true } do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %><br/>
+  <%= f.label :category %>
+  <%= f.select(:category, ['Plates', 'Deco', 'Cheese Trays', 'Recycled Bottles', 'Wind Chimes', 'Coasters', 'Jewelery']) %><br/>
+  <%= f.label :price %>
+  <%= f.number_field :price %>
+  <%= f.label :description %><br/>
+  <%= f.text_area :description %><br/>
+  <%= f.file_field :image_path %>
+  <%= f.submit "Save" %>
+<% end %>
