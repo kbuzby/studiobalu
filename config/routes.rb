@@ -9,12 +9,13 @@ Rails.application.routes.draw do
   match '/contact', to: 'main#contact', via: [:get, :post]
 
   #login / logout pages
-  get '/admin', to: 'sessions#new'
-  post '/admin', to: 'sessions#create'
+  get '/admin', to: 'sessions#show'
+  get '/login', to: 'sessions#new'
+  post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
 
   #ActiveRecord resource pages
   resources :users, only: [:new, :create, :edit, :destroy]
   resources :products
-  
+
 end

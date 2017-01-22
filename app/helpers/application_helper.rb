@@ -1,9 +1,13 @@
 module ApplicationHelper
 
   def is_active(action)
-    if params[:controller] == "main"
-      params[:action] == action ? "active" : nil
+    controller = params[:controller]
+    paramAction = params[:action]
+    if controller == 'main'
+      paramAction == action ? 'active' : nil
+    elsif controller == 'sessions'
+      (action == 'admin' && paramAction == 'show') ? 'active' : nil
     end
   end
-  
+
 end

@@ -1,4 +1,6 @@
 class ProductsController < ApplicationController
+  skip_before_action :require_login
+
   def index
     category = params[:category]
     if category != nil
@@ -63,6 +65,6 @@ class ProductsController < ApplicationController
 
   private
     def product_params
-      params.require(:post).permit(:name, :category, :description, :price, :image_path)
+      params.require(:product).permit(:name, :category, :description, :price, :image_path)
     end
 end

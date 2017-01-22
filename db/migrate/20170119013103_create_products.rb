@@ -5,7 +5,7 @@ class CreateProducts < ActiveRecord::Migration[5.0]
       t.string :category
       t.string :description
       t.string :image_path, index: true
-      t.decimal :price, scale: 2
+      t.decimal :price, precision: 8, scale: 2
       t.boolean :sold
       t.timestamps
     end

@@ -1,2 +1,15 @@
-<h1>Products#show</h1>
-<p>Find me in app/views/products/show.html.erb</p>
+<div class='container'>
+
+  <%= image_tag @product.image_path.url, align: 'left' %>
+
+  <h2><%= @product.name %></h2><br/>
+
+  <p><%= @product.description %></p><br/>
+
+  <h4><%= @product.price %> &emsp;&emsp; <%= link_to 'Add to Cart', '#', class: 'btn btn-primary' %></h4><br/>
+
+  <% if admin? %>
+    <%= link_to 'Edit Info', edit_product_path(@product), class: 'btn btn-warning' %>
+  <% end %>
+
+</div>
