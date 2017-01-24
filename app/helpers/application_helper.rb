@@ -7,6 +7,8 @@ module ApplicationHelper
       paramAction == action ? 'active' : nil
     elsif controller == 'sessions'
       (action == 'admin' && paramAction == 'show') ? 'active' : nil
+    elsif controller == 'products'
+      action == 'gallery' ? 'active' : nil
     end
   end
 

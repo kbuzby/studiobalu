@@ -1,12 +1,15 @@
 <%= form_for @product, html: { multipart: true } do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name, required: true %><br/>
-  <%= f.label :category %>
-  <%= f.select(:category, ['Plates', 'Deco', 'Cheese Trays', 'Recycled Bottles', 'Wind Chimes', 'Coasters', 'Jewelery']) %><br/>
+  <% if @category_names.present? %>
+    <%= f.label :gallery_category %>
+    <%= f.select(:gallery_category, @category_names, include_blank: true) %><br/>
+  <% end %>
   <%= f.label :price %>
   <%= f.number_field :price, required: true, value: number_to_currency(f.object.price.to_f, delimiter: '', unit: ''), step: :any %><br/>
   <%= f.label :description %><br/>
   <%= f.text_area :description %><br/>
-  <%= f.file_field :image_path %>
-  <%= f.submit "Save" %>
+  <%= f.label 'Image: ' %>
+  <%= f.file_field :image_path %><br/>
+  <%= f.submit "Save", class: 'btn btn-success'%>
 <% end %>

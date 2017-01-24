@@ -2,12 +2,15 @@ class ProductsController < ApplicationController
   skip_before_action :require_login
 
   def index
-    category = params[:category]
-    if category != nil
-      @products = Product.where(category: category)
+
+    @category = GalleryCategory.find_by(name: params[:category])
+
+    if @category != nil
+      @products = Product.where(gallery_category: @category)
     else
       @products = Product.all
     end
+    
   end
 
   def new
@@ -24,7 +27,7 @@ class ProductsController < ApplicationController
     end
 
     @product = Product.new(product_params)
-    if @product.save
+    if @product.save!
       redirect_to edit_product_path(@product)
     end
   end
@@ -65,6 +68,6 @@ class ProductsController < ApplicationController
 
   private
     def product_params
-      params.require(:product).permit(:name, :category, :description, :price, :image_path)
+      params.require(:product).permit(:name, :gallery_category, :description, :price, :image_path)
     end
 end

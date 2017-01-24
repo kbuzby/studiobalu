@@ -1,0 +1,17 @@
+<div class='row'>
+  <div class='col-md-6'
+    <% if @categories.present? %>
+      <ul class='list-group'>
+        <% @categories.each do |c| %>
+          <li class='list-group-item clearfix'>
+            <%= c.name %>
+            <span class='pull-right'>
+              <%= link_to 'Edit', edit_gallery_category_path(c), class: 'btn btn-primary'%>
+              <!--add delete button -->
+            </span>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+</div>

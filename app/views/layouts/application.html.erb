@@ -27,19 +27,20 @@
               <li class=<%=is_active('index')%>><a href="/">Home</a></li>
               <li class=<%=is_active('about')%>><a href="/about">About Us</a></li>
               <li class=<%=is_active('contact')%>><a href="/contact">Contact Us</a></li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspoup="true" aria-expanded="false">Products <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li><a href="#">Plates</a></li>
-                  <li><a href="#">Vases</a></li>
-                  <li><a href="#">Deco</a></li>
-                  <li><a href="#">Cheese Trays</a></li>
-                  <li><a href="#">Recycled Bottles</a></li>
-                  <li><a href="#">Coasters</a></li>
-                  <li><a href="#">Wind Chimes</a></li>
-                  <li><a href="#">Jewelery</a></li>
-                </ul>
-              </li>
+              <% if @category_names.present? %>
+                <li class='<%=is_active('gallery') ? "dropdown active" : "dropdown"%>'>
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspoup="true" aria-expanded="false">Gallery <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><%= link_to 'View All', products_path %></li>
+                    <li role='separator' class='divider'></li>
+                    <% @category_names.each do |c| %>
+                      <li><%= link_to c, products_path(:category => c) %></li>
+                    <% end %>
+                  </ul>
+                </li>
+              <% else %>
+                <li class=<%=is_active('gallery')%>><a href="/gallery">Gallery</a></li>
+              <% end %>
             </ul>
             <ul class="nav navbar-nav navbar-right">
               <li><a href="#">View Cart</a></li>

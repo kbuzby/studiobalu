@@ -1,0 +1,7 @@
+<%= form_for @category, url: url_for(controller: 'gallery_category', action: @action),html: {multipart: true} do |f| %>
+  <%= f.label :name %><br/>
+  <%= f.text_field :name %><br/>
+  <%= f.label :description %>
+  <%= f.text_area :description %>
+  <%= f.submit 'Save' %>
+<% end %>

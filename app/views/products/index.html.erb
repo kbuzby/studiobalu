@@ -1,2 +1,22 @@
-<h1>Products#index</h1>
-<p>Find me in app/views/products/index.html.erb</p>
+<% if @category.present? %>
+  <h1><%= @category.name %></h1>
+  <h3><%= @category.description %></h3>
+<% end %>
+
+<% if @products.present? %>
+  <% @products.each do |p| %>
+
+    <div class='col-sm-4'>
+      <div class="panel panel-info">
+        <div class='panel-body'>
+          <%= image_tag p.image_path.thumb.url, class: 'img-thumbnail'%><br/>
+          <h4><%= p.name %></h4><br/>
+          <%= link_to 'Details', product_path(p), class: 'btn btn-primary' %>
+        </div>
+      </div>
+    </div>
+
+  <% end %>
+<% else %>
+  <h4>Coming soon!</h4>
+<% end %>
