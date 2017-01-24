@@ -19,6 +19,13 @@
 
 body {
   padding-top: 20px;
+  background-image: image_url('Background-Color-5.gif');
+}
+
+.main-well {
+  background: rgb(212, 209, 255);
+  background: rgba(212, 209, 255, 0.5);
+
 }
 
 .navbar-nav.navbar-right:last-child {
