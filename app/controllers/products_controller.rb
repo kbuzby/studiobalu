@@ -10,7 +10,7 @@ class ProductsController < ApplicationController
     else
       @products = Product.all
     end
-    
+
   end
 
   def new
@@ -25,6 +25,8 @@ class ProductsController < ApplicationController
     if !admin?
       redirect_to products_path
     end
+
+    #params[:product][:gallery_category] = GalleryCategory.find_by(name: params[:product][:gallery_category])
 
     @product = Product.new(product_params)
     if @product.save!
@@ -50,7 +52,10 @@ class ProductsController < ApplicationController
     end
 
     @product = Product.find(params[:id])
-    if @product.update_attributes(product_params)
+
+    #params[:product][:gallery_category] = GalleryCategory.find_by(name: params[:product][:gallery_category])
+
+    if @product.update_attributes!(product_params)
       redirect_to product_path(@product)
     else
       redirect_to edit_product_path(@product)
@@ -68,6 +73,6 @@ class ProductsController < ApplicationController
 
   private
     def product_params
-      params.require(:product).permit(:name, :gallery_category, :description, :price, :image_path)
+      params.require(:product).permit(:name, :gallery_category_id, :description, :price, :image_path)
     end
 end

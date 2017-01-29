@@ -3,7 +3,7 @@
   <%= f.text_field :name, required: true %><br/>
   <% if @category_names.present? %>
     <%= f.label :gallery_category %>
-    <%= f.select(:gallery_category, @category_names, include_blank: true) %><br/>
+    <%= f.collection_select(:gallery_category_id, GalleryCategory.all, :id, :name, include_blank: true) %><br/>
   <% end %>
   <%= f.label :price %>
   <%= f.number_field :price, required: true, value: number_to_currency(f.object.price.to_f, delimiter: '', unit: ''), step: :any %><br/>
