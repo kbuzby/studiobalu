@@ -9,10 +9,19 @@
   </head>
 
   <body>
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
     <div class="container well main-well">
 
       <a href="/"><%=image_tag image_url("full-logo.jpg"), style: 'width:100%'%></a>
-      <nav class="navbar navbar-defalt navbar-inverse navbar-color">
+      <nav class="navbar navbar-defalt navbar-default navbar-color">
         <div class="container">
           <div class="navbar-header">
               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" arai_controls="navbar">

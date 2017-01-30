@@ -1,0 +1,71 @@
+<div class='row'>
+  <div class='col-lg-8'>
+    <div class='panel panel-info'>
+      <div class='panel-heading'>
+        <h3 class='panel-title'>Welcome!</h3>
+      </div>
+      <div class='panel-body'>
+        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+          <ol class="carousel-indicators">
+            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="3"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="4"></li>
+          </ol>
+          <div class="carousel-inner" role="listbox" >
+            <div class="item active" style="height:500px">
+              <%= image_tag image_url('carousel/1.jpg'), style: 'width:80%;margin:auto' %>
+            </div>
+            <div class="item" style="height:500px">
+              <%= image_tag image_url('carousel/2.jpg'), style: 'width:80%;margin:auto' %>
+            </div>
+            <div class="item" style="height:500px">
+              <%= image_tag image_url('carousel/3.jpg'), style: 'width:80%;margin:auto' %>
+            </div>
+            <div class="item" style="height:500px">
+              <%= image_tag image_url('carousel/4.jpg'), style: 'width:80%;margin:auto' %>
+            </div>
+            <div class="item" style="height:500px">
+              <%= image_tag image_url('carousel/5.jpg'), style: 'width:80%;margin:auto' %>
+            </div>
+          </div>
+          <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div><br/>
+
+        <p>Put some short small bio / intro here </p>
+        <%= link_to 'Read More About Us', '/about', class: 'btn btn-primary' %>
+        <%= link_to 'View Gallery', products_path, class: 'btn btn-primary' %>
+      </div>
+    </div>
+  </div>
+
+  <div class='col-lg-4'>
+    <div class='panel panel-info'>
+      <div class='panel-heading'>
+        <h3 class='panel-title'>Like Us on Facebook!</h3>
+      </div>
+      <div class='panel-body'>
+        <div class="fb-page" data-href="https://www.facebook.com/Studio-Balu-Designs-175202905854057" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="true" data-show-facepile="true"><blockquote cite="https://www.facebook.com/Studio-Balu-Designs-175202905854057" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/Studio-Balu-Designs-175202905854057">Studio Balu Designs</a></blockquote></div>
+      </div>
+    </div>
+  </div>
+
+  <div class='col-lg-4'>
+    <div class='panel panel-info'>
+      <div class='panel-heading'>
+        <h3 class='panel-title'>Show Schedule</h3>
+      </div>
+      <div class='panel-body'>
+        <p>More shows coming soon!<p>
+      </div>
+    </div>
+  </div>
+</div>
