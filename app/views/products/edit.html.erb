@@ -1,7 +1,12 @@
-<div class="container">
-  <% @action = 'update' %>
-  <%= render "form" %>
-  <% if admin? %>
-    <%= link_to 'Delete', product_path(@product), method: 'delete', class: 'btn btn-danger' %>
-  <% end %>
+<div class='panel panel-info'>
+  <div class='panel-heading'>
+    <h3 class='panel-title'>New Gallery Item</h3>
+  </div>
+  <div class='panel-body'>
+    <% @action = 'update' %>
+    <%= render "form" %>
+    <% if admin? %>
+      <%= link_to 'Delete', product_path(@product), method: 'delete', class: 'btn btn-danger' %>
+    <% end %>
+  </div>
 </div>

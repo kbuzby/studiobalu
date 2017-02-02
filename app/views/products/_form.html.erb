@@ -1,15 +1,42 @@
 <%= form_for @product, html: { multipart: true } do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name, required: true %><br/>
+
+  <div class='form-group row'>
+    <%= f.label :name, class: 'col-sm-1 col-form-label' %>
+    <div class='col-sm-3'>
+      <%= f.text_field :name, required: true, class: 'form-control' %>
+    </div>
+  </div>
+
   <% if @category_names.present? %>
-    <%= f.label :gallery_category %>
-    <%= f.collection_select(:gallery_category_id, GalleryCategory.all, :id, :name, include_blank: true) %><br/>
+    <div class='form-group row'>
+      <%= f.label :gallery_category, class: 'col-sm-1 col-form-label' %>
+      <div class='col-sm-3'>
+        <%= f.collection_select(:gallery_category_id, GalleryCategory.all, :id, :name, {include_blank: true}, {class: 'form-control'}) %>
+      </div>
+    </div>
   <% end %>
-  <%= f.label :price %>
-  <%= f.number_field :price, required: true, value: number_to_currency(f.object.price.to_f, delimiter: '', unit: ''), step: :any %><br/>
-  <%= f.label :description %><br/>
-  <%= f.text_area :description %><br/>
-  <%= f.label 'Image: ' %>
-  <%= f.file_field :image_path %><br/>
+
+  <div class='form-group row'>
+    <%= f.label :price, class: 'col-sm-1 col-form-label' %>
+    <div class='col-sm-2'>
+      <%= f.number_field :price, required: true, value: number_to_currency(f.object.price.to_f, delimiter: '', unit: ''), step: :any, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class='form-group row'>
+    <%= f.label :description, class: 'col-sm-1 col-form-label' %>
+    <div class='col-sm-3'>
+      <%= f.text_area :description, class: 'form-control', rows: 4 %>
+    </div>
+  </div>
+
+  <div class='form-group row'>
+    <%= f.label 'Image:', class: 'col-sm-1 col-form-label'%>
+    <div class='col-sm-3'>
+      <%= f.file_field :image_path,class: 'form-control' %>
+    </div>
+  </div>
+
   <%= f.submit "Save", class: 'btn btn-success'%>
+
 <% end %>

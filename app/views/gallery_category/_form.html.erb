@@ -1,7 +1,19 @@
 <%= form_for @category, url: url_for(controller: 'gallery_category', action: @action),html: {multipart: true} do |f| %>
-  <%= f.label :name %><br/>
-  <%= f.text_field :name %><br/>
-  <%= f.label :description %>
-  <%= f.text_area :description %>
-  <%= f.submit 'Save' %>
+
+  <div class='form-group row'>
+    <%= f.label :name, class: 'col-sm-1 col-form-label' %>
+    <div class='col-sm-3'>
+      <%= f.text_field :name, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class='form-group row'>
+    <%= f.label :description, class: 'col-sm-1 col-form-label' %>
+    <div class='col-sm-3'>
+      <%= f.text_area :description, class: 'form-control', rows: 4 %>
+    </div>
+  </div>
+
+  <%= f.submit 'Save', class: 'btn btn-success' %>
+
 <% end %>
