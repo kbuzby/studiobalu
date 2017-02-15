@@ -1,3 +1,12 @@
 // Place all the styles related to the products controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.img-thumbnail.img-details-main {
+  width: 50%;
+  margin-right: 10px;
+}
+
+h1.panel-title {
+  font-size: 25px;
+}

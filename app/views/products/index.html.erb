@@ -1,22 +1,32 @@
-<% if @category.present? %>
-  <h1><%= @category.name %></h1>
-  <h3><%= @category.description %></h3>
-<% end %>
-
-<% if @products.present? %>
-  <% @products.each do |p| %>
-
-    <div class='col-sm-4'>
-      <div class="panel panel-info">
-        <div class='panel-body'>
-          <%= image_tag p.image_path.thumb.url, class: 'img-thumbnail'%><br/>
-          <h4><%= p.name %></h4><br/>
-          <%= link_to 'Details', product_path(p), class: 'btn btn-primary' %>
-        </div>
-      </div>
+<div class='panel panel-info'>
+  <% if @category.present? %>
+    <div class='panel-heading'>
+      <h1 class='panel-title'><%= @category.name %></h1>
     </div>
-
   <% end %>
-<% else %>
-  <h4>Coming soon!</h4>
-<% end %>
+  <div class='panel-body'>
+    <% if @category.present? %>
+      <h3><%= @category.description %></h3>
+    <% end %>
+
+    <% if @products.present? %>
+      <% @products.each do |p| %>
+
+        <div class='col-sm-4'>
+          <div class='panel panel-info' >
+            <div class='panel-body'>
+              <div style='height:300px;line-height:300px;text-align:center'>
+                <%= image_tag p.image_path.thumb.url, class: 'img-thumbnail', style: 'vertical-align:middle'%>
+              </div><br/>
+              <h4><%= p.name %></h4><br/>
+              <%= link_to 'Details', product_path(p), class: 'btn btn-primary' %>
+            </div>
+          </div>
+        </div>
+
+      <% end %>
+    <% else %>
+      <h4>New items coming soon!</h4>
+    <% end %>
+  </div>
+</div>
