@@ -1,7 +1,7 @@
 class MessageMailer < ApplicationMailer
 
-  default from: "greenwave423@gmail.com"
-  default to: "greenwave423@gmail.com"
+  default from: "studiobaludesigns@comcast.net"
+  default to: "studiobaludesigns@comcast.net"
 
   def new_message(message)
     @message = message
