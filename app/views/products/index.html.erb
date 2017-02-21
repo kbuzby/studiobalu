@@ -16,7 +16,7 @@
           <div class='panel panel-info' >
             <div class='panel-body'>
               <div style='height:300px;line-height:300px;text-align:center'>
-                <%= image_tag p.image_path.thumb.url, class: 'img-thumbnail', style: 'vertical-align:middle'%>
+                <%= image_tag @images[p.id].thumb.url, class: 'img-thumbnail', style: 'vertical-align:middle'%>
               </div><br/>
               <h4><%= p.name %></h4><br/>
               <%= link_to 'Details', product_path(p), class: 'btn btn-primary' %>

@@ -4,9 +4,6 @@
   </div>
   <div class='panel-body'>
     <% @action = 'update' %>
-    <%= render "form" %>
-    <% if admin? %>
-      <%= link_to 'Delete', product_path(@product), method: 'delete', class: 'btn btn-danger' %>
-    <% end %>
+    <%= render "form" %>    
   </div>
 </div>
