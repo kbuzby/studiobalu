@@ -24,11 +24,11 @@ class ItemImagesController < ApplicationController
       logger.debug "product primary image"+@product.primary_image.to_s
       if ItemImage.where(product_id: @product.id).size == 0
         logger.debug "there's no other images so set to default"
-        @product.primary_image = 1
+        @product.update_attributes!({"primary_image" => 1})
       else
-        @product.primary_image = ItemImage.where(product_id: @product.id).first.id
+        @product.update_attributes!({"primary_image" => ItemImage.where(product_id: @product.id).first.id})
       end
-      @product.save!
+
       redirect_to edit_product_path(@product)
     end
 
