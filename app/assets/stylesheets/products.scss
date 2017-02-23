@@ -2,11 +2,21 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.img-thumbnail.img-details-main {
-  width: 50%;
-  margin-right: 10px;
-}
-
 h1.panel-title {
   font-size: 25px;
+}
+
+.product-text {
+  font-size: 20px;
+}
+
+.img-thumbnail.mini-thumb {
+  height:70px;
+  line-height:70px;
+  margin: 0px 5px 0px 5px;
+  padding: 0px;
+}
+
+.img-thumbnail.mini-thumb:hover {
+  border: 1px solid cyan;
 }

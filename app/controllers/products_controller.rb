@@ -11,6 +11,11 @@ class ProductsController < ApplicationController
       @products = Product.all
     end
 
+    @images = {}
+    @products.each do |p|
+      image = ItemImage.find(p.primary_image)
+      @images[p.id] = image.image_path
+    end
   end
 
   def new
@@ -25,8 +30,7 @@ class ProductsController < ApplicationController
     if !admin?
       redirect_to products_path
     end
-
-    #params[:product][:gallery_category] = GalleryCategory.find_by(name: params[:product][:gallery_category])
+    params[:product][:primary_image] = 1;
 
     @product = Product.new(product_params)
     if @product.save!
@@ -44,6 +48,8 @@ class ProductsController < ApplicationController
 
   def show
     @product = Product.find(params[:id])
+    @primaryImage = ItemImage.find(@product.primary_image)
+    @images = ItemImage.where(product_id: params[:id])
   end
 
   def update
@@ -53,10 +59,8 @@ class ProductsController < ApplicationController
 
     @product = Product.find(params[:id])
 
-    #params[:product][:gallery_category] = GalleryCategory.find_by(name: params[:product][:gallery_category])
-
     if @product.update_attributes!(product_params)
-      redirect_to product_path(@product)
+      redirect_to edit_product_path(@product)
     else
       redirect_to edit_product_path(@product)
     end
@@ -69,10 +73,13 @@ class ProductsController < ApplicationController
     end
 
     @product = Product.find(params[:id])
+    @primaryImage = ItemImage.find(@product.primary_image)
+    @images = ItemImage.where(product_id: @product.id)
+    @newImage = ItemImage.new
   end
 
   private
     def product_params
-      params.require(:product).permit(:name, :gallery_category_id, :description, :price, :image_path)
+      params.require(:product).permit(:name, :gallery_category_id, :description, :price, :primary_image)
     end
 end

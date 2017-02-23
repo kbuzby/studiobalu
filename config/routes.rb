@@ -18,7 +18,11 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
 
   #ActiveRecord resource pages
-  resources :products, path: 'gallery'
+  resources :products, path: 'gallery' do
+    resources :item_images
+  end
+
+
   resources :gallery_category
 
 end

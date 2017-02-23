@@ -1,42 +1,75 @@
-<%= form_for @product, html: { multipart: true } do |f| %>
+<div class='col-lg-4'>
+  <%= form_for @product, html: { multipart: true } do |f| %>
 
-  <div class='form-group row'>
-    <%= f.label :name, class: 'col-sm-1 col-form-label' %>
-    <div class='col-sm-3'>
-      <%= f.text_field :name, required: true, class: 'form-control' %>
-    </div>
-  </div>
-
-  <% if @category_names.present? %>
     <div class='form-group row'>
-      <%= f.label :gallery_category, class: 'col-sm-1 col-form-label' %>
-      <div class='col-sm-3'>
-        <%= f.collection_select(:gallery_category_id, GalleryCategory.all, :id, :name, {include_blank: true}, {class: 'form-control'}) %>
+      <%= f.label :name, class: 'col-sm-4 col-form-label' %>
+      <div class='col-sm-8'>
+        <%= f.text_field :name, required: true, class: 'form-control' %>
       </div>
     </div>
-  <% end %>
 
-  <div class='form-group row'>
-    <%= f.label :price, class: 'col-sm-1 col-form-label' %>
-    <div class='col-sm-2'>
-      <%= f.number_field :price, required: true, value: number_to_currency(f.object.price.to_f, delimiter: '', unit: ''), step: :any, class: 'form-control' %>
+    <% if @category_names.present? %>
+      <div class='form-group row'>
+        <%= f.label :gallery_category, class: 'col-sm-4 col-form-label' %>
+        <div class='col-sm-8'>
+          <%= f.collection_select(:gallery_category_id, GalleryCategory.all, :id, :name, {include_blank: true}, {class: 'form-control'}) %>
+        </div>
+      </div>
+    <% end %>
+
+    <div class='form-group row'>
+      <%= f.label :price, class: 'col-sm-4 col-form-label' %>
+      <div class='col-sm-8'>
+        <%= f.number_field :price, required: true, value: number_to_currency(f.object.price.to_f, delimiter: '', unit: ''), step: :any, class: 'form-control' %>
+      </div>
     </div>
-  </div>
 
-  <div class='form-group row'>
-    <%= f.label :description, class: 'col-sm-1 col-form-label' %>
-    <div class='col-sm-3'>
-      <%= f.text_area :description, class: 'form-control', rows: 4 %>
+    <div class='form-group row'>
+      <%= f.label :description, class: 'col-sm-4 col-form-label' %>
+      <div class='col-sm-8'>
+        <%= f.text_area :description, class: 'form-control', rows: 4 %>
+      </div>
     </div>
+
+    <%= f.submit "Save", class: 'btn btn-success'%>
+    <% if admin? && @action=="update" %>
+      <%= link_to 'Delete', product_path(@product), method: 'delete', class: 'btn btn-danger' %>
+    <% end %>
+  <% end %><br/>
+</div>
+<div class='col-lg-8'>
+  <label class='col-form-label'>Images</label>
+  <% if @action=='update'%>
+    <% if @images.present? %>
+      <div class='row'>
+        <% @images.each do |i| %>
+          <div class='col-md-4'>
+            <div class='panel panel-info'>
+              <div class='panel-body' <%= @primaryImage.id == i.id ? raw("style='background:lightcyan'") : ""%>>
+                <div style='height:200px;line-height:200px;text-align:center'>
+                  <%= image_tag i.image_path.thumb.url, class: 'img-thumbnail', style: 'vertical-align:middle'%>
+                </div><br/>
+                <%= form_for @product do |f| %>
+                  <%= f.hidden_field :primary_image, value: i.id %>
+                  <%= f.submit 'Set Primary', class: 'btn btn-primary' %>
+                  <%= link_to 'Delete', url_for([@product, i]), method: 'delete', class: 'btn btn-danger pull-right' %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div><br/>
+    <% end %>
+    <div class='form-group row'>
+      <%= form_for @newImage, html: { multipart: true }, url: url_for([@product, @newImage]) do |f| %>
+        <%= f.hidden_field :product_id, value: @product.id %>
+        <div class='col-sm-6'>
+          <%= f.file_field :image_path,class: 'form-control' %>
+        </div>
+        <%= f.submit "Add Image", class: 'btn btn-primary'%>
+      <% end %>
+    <% else %>
+      <p>Save the product to start adding images!</p>
+    <% end %>
   </div>
-
-  <div class='form-group row'>
-    <%= f.label 'Image:', class: 'col-sm-1 col-form-label'%>
-    <div class='col-sm-3'>
-      <%= f.file_field :image_path,class: 'form-control' %>
-    </div>
-  </div>
-
-  <%= f.submit "Save", class: 'btn btn-success'%>
-
-<% end %>
+</div>

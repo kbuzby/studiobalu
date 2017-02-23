@@ -6,15 +6,26 @@
   </div>
   <div class='panel-body'>
 
-    <%= image_tag @product.image_path.url, class: 'img-thumbnail img-details-main', align: 'left' %>
+    <div class='col-lg-6'>
+      <div class='row'>
+          <%= image_tag @primaryImage.image_path.url, id: 'big-image', class: 'img-thumbnail', style: 'margin-bottom: 5px' %>
+      </div>
+      <div class='row'>
+      <% @images.each do |i| %>
+          <%= image_tag i.image_path.thumb.url, class: 'mini-thumb img-thumbnail', onclick: 'thumbnailClick("'+i.image_path.url+'")'%>
+      <% end %>
+      </div>
+    </div>
+    <div class='col-lg-6'>
+      <p class='product-text'><%= @product.description %></p>
+      <br/>
+      <div class='product-text'>$<%= '%.2f' % @product.price %> &emsp;&emsp;<%= link_to 'Add to Cart', '#', class: 'btn btn-primary' %>
+        <% if admin? %>
+          <%= link_to 'Edit Info', edit_product_path(@product), class: 'btn btn-warning' %>
+        <% end %>
+      </div>
 
-    <p><%= @product.description %></p><br/>
 
-    <h4>$<%= '%.2f' % @product.price %> &emsp;&emsp; <%= link_to 'Add to Cart', '#', class: 'btn btn-primary' %></h4><br/>
-
-    <% if admin? %>
-      <%= link_to 'Edit Info', edit_product_path(@product), class: 'btn btn-warning' %>
-    <% end %>
-
+    </div>
   </div>
 </div>
