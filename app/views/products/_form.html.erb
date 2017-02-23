@@ -45,7 +45,7 @@
         <% @images.each do |i| %>
           <div class='col-md-4'>
             <div class='panel panel-info'>
-              <div class='panel-body'>
+              <div class='panel-body' <%= @primaryImage.id == i.id ? raw("style='background:lightcyan'") : ""%>>
                 <div style='height:200px;line-height:200px;text-align:center'>
                   <%= image_tag i.image_path.thumb.url, class: 'img-thumbnail', style: 'vertical-align:middle'%>
                 </div><br/>

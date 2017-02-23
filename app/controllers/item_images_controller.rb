@@ -32,7 +32,6 @@ class ItemImagesController < ApplicationController
       redirect_to edit_product_path(@product)
     end
 
-
   end
 
   private

@@ -49,7 +49,7 @@ class ProductsController < ApplicationController
   def show
     @product = Product.find(params[:id])
     @primaryImage = ItemImage.find(@product.primary_image)
-    @images = ItemImage.where(product_id: :id)
+    @images = ItemImage.where(product_id: params[:id])
   end
 
   def update
@@ -60,7 +60,7 @@ class ProductsController < ApplicationController
     @product = Product.find(params[:id])
 
     if @product.update_attributes!(product_params)
-      redirect_to product_path(@product)
+      redirect_to edit_product_path(@product)
     else
       redirect_to edit_product_path(@product)
     end
