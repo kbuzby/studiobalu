@@ -35,7 +35,21 @@ class GalleryCategoryController < ApplicationController
 
   def destroy
     @category = GalleryCategory.find(params[:id])
-    update_category_names
+
+    if @category.destroy!
+
+      @products = Product.where(gallery_category: @category.id)
+      @products.each do |p|
+        p.update_attributes({"gallery_category" => nil})
+      end
+
+      update_category_names
+
+      redirect_to gallery_category_index_path
+      
+    else
+      redirect_to edit_gallery_category_path(@category)
+    end
   end
 
   private

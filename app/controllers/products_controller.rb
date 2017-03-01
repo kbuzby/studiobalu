@@ -44,6 +44,18 @@ class ProductsController < ApplicationController
     end
 
     @product = Product.find(params[:id])
+    
+    if @product.destroy!
+      @images = ItemImage.where(product_id: @product.id)
+
+      @images.each do |i|
+        i.destroy!
+      end
+      redirect_to admin_path
+    else
+      redirect_to edit_product_path(@product)
+    end
+
   end
 
   def show
