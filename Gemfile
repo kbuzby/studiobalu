@@ -1,6 +1,9 @@
 source 'https://rubygems.org'
 
 #non default
+#paypal
+gem 'paypal-sdk-rest'
+
 #carrierwave for file uploading
 gem 'carrierwave'
 gem 'mini_magick'
