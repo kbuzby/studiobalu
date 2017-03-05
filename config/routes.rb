@@ -20,9 +20,13 @@ Rails.application.routes.draw do
   #ActiveRecord resource pages
   resources :products, path: 'gallery' do
     resources :item_images
+    post 'addToCart', on: :member
   end
 
-
   resources :gallery_category
+
+  resources :orders, only: [:update,:create,:destroy] do
+    post 'submitPayment', on: :member
+  end
 
 end

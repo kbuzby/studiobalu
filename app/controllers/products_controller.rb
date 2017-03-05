@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
   skip_before_action :require_login
+  before_action: set_order, only: :addToOrder
 
   def index
 
@@ -44,7 +45,7 @@ class ProductsController < ApplicationController
     end
 
     @product = Product.find(params[:id])
-    
+
     if @product.destroy!
       @images = ItemImage.where(product_id: @product.id)
 
@@ -88,6 +89,24 @@ class ProductsController < ApplicationController
     @primaryImage = ItemImage.find(@product.primary_image)
     @images = ItemImage.where(product_id: @product.id)
     @newImage = ItemImage.new
+  end
+
+  def addToOrder
+
+    @product = Product.find(:id)
+
+    if @product.order_id.nil?
+      if @product.update_attributes({order_id: @order.id})
+        redirect_to product_path(@product)
+      else
+        flash[:error] = "There was a problem adding the item to your cart"
+        redirect :back
+      end
+    else
+      flash[:error] = "This item is no longer available"
+      redirect :back
+    end
+
   end
 
   private
