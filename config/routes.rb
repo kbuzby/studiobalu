@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   #ActiveRecord resource pages
   resources :products, path: 'gallery' do
     resources :item_images
-    post 'addToCart', on: :member
+    post 'addToOrder', on: :member
   end
 
   resources :gallery_category

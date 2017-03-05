@@ -1,6 +1,7 @@
 class ProductsController < ApplicationController
+  include CurrentOrder
   skip_before_action :require_login
-  before_action: set_order, only: :addToOrder
+  before_action :set_order, only: :addToOrder
 
   def index
 
@@ -93,7 +94,7 @@ class ProductsController < ApplicationController
 
   def addToOrder
 
-    @product = Product.find(:id)
+    @product = Product.find(params[:id])
 
     if @product.order_id.nil?
       if @product.update_attributes({order_id: @order.id})
@@ -104,7 +105,7 @@ class ProductsController < ApplicationController
       end
     else
       flash[:error] = "This item is no longer available"
-      redirect :back
+      redirect_back(fallback_location: product_path(@product))
     end
 
   end

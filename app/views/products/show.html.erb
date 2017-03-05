@@ -19,10 +19,21 @@
     <div class='col-lg-6'>
       <p class='product-text'><%= @product.description %></p>
       <br/>
-      <div class='product-text'>$<%= '%.2f' % @product.price %> &emsp;&emsp;<%= link_to 'Add to Cart', '#', class: 'btn btn-primary' %>
+      <div class='product-text'>
+        <% available = @product.order_id.nil? %>
+
+        $<%= '%.2f' % @product.price %> &emsp;&emsp;
+
+        <%= button_to 'Add to Cart', addToOrder_product_path(@product), method: :post, class: 'btn btn-primary', form: { style: 'display:inline'}, disabled: !available %>
+
         <% if admin? %>
-          <%= link_to 'Edit Info', edit_product_path(@product), class: 'btn btn-warning' %>
+        <%= button_to 'Edit Info', edit_product_path(@product), class: 'btn btn-warning', form: { style: 'display:inline'} %>
         <% end %>
+
+        <% if !available %>
+        <br/><p style='font-size:12px'><em>This item is not currently available</em></p>
+        <% end %>
+
       </div>
 
 
