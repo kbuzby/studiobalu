@@ -21,12 +21,16 @@ Rails.application.routes.draw do
   resources :products, path: 'gallery' do
     resources :item_images
     post 'addToOrder', on: :member
+    post 'removeFromOrder', on: :member
   end
 
   resources :gallery_category
 
-  resources :orders, only: [:update,:create,:destroy] do
-    post 'submitPayment', on: :member
+  resources :orders, only: [:create,:destroy] do
+    post 'submit_payment', on: :member
+    put 'update_shipping', on: :member
+    put 'update_billing', on: :member
   end
+  get '/order', to: 'orders#show'
 
 end

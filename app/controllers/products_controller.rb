@@ -110,6 +110,14 @@ class ProductsController < ApplicationController
 
   end
 
+  def removeFromOrder
+    @product = Product.find(params{:id})
+
+    if @product.update_attributes({order_id: nil})
+      redirect_to url_for(controller: 'orders', action: 'show', id: session[:order_id])
+    end
+  end
+
   private
     def product_params
       params.require(:product).permit(:name, :gallery_category_id, :description, :price, :primary_image)
