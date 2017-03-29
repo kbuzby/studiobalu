@@ -25,7 +25,6 @@ html {
 body {
   padding-top: 10px;
   background-image: image_url('Background-Color-5.gif');
-  margin-bottom: 200px;
 }
 
 .main-well {
@@ -39,11 +38,8 @@ body {
 }
 
 .footer {
-  position: absolute;
-  bottom: 0;
   width: 100%;
   /* Set the fixed height of the footer here */
-  height: 195px;
   background: rgb(230, 240, 100);
   background: rgba(230, 240, 100, 0.6);
 }
