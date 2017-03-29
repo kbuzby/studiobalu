@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   #mainly static pages
   match '/home', to: 'main#index', via: [:get, :post]
   match '/about', to: 'main#about', via: [:get, :post]
+  match '/cart', to: 'main#temp_cart', via: [:get, :post]
 
   #contact pages
   get '/contact', to: 'messages#new', as: 'contact'

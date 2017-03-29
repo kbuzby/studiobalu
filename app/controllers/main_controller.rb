@@ -7,7 +7,7 @@ class MainController < ApplicationController
   def about
   end
 
-  def contact
+  def temp_cart
   end
 
 end
