@@ -19,7 +19,10 @@
     <div class='col-lg-6'>
       <p class='product-text'><%= @product.description %></p>
       <br/>
-      <div class='product-text'>$<%= '%.2f' % @product.price %> &emsp;&emsp;<%= link_to 'Add to Cart', '#', class: 'btn btn-primary' %>
+      <div class='product-text'>$<%= '%.2f' % @product.price %> &emsp;&emsp;
+      <!--<%= link_to 'Add to Cart', '#', class: 'btn btn-primary' %>-->
+      <br>
+      <p>Shopping cart will be added soon, please <a href="/contact">Contact us</a> for availability!</p>
         <% if admin? %>
           <%= link_to 'Edit Info', edit_product_path(@product), class: 'btn btn-warning' %>
         <% end %>
