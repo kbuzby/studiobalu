@@ -1,120 +1,158 @@
 <div class='panel panel-info'>
 
   <div class='panel-heading'>
-    <h3 class='panel-title'>Your Order</h3>
+    <h3 class='panel-title'>Your Cart</h3>
   </div>
 
   <div class='panel-body'>
-
-    <div class='row'>
-      <div class='col-lg-6'>
-        <div class='list-group'>
-          <% @orderItems.each do |i| %>
-            <div class='list-group-item'>
-              <div class='row'>
-                <div class='col-sm-8'>
-                  <%= i.name %>
-                </div>
-                <div class='col-sm-4'>
-                  $<%= '%.2f' % i.price %>
-                  <%= link_to 'X', removeFromOrder_product_path(i), class: 'btn btn-danger pull-right' %>
+    <% if !@order.nil? %>
+      <div class='row'>
+        <div class='col-lg-12'>
+          <div class='list-group'>
+            <% @orderItems.each do |i| %>
+              <div class='list-group-item'>
+                <div class='row'>
+                  <div class='col-sm-8'>
+                    <%= i.name %>
+                  </div>
+                  <div class='col-sm-4'>
+                    $<%= '%.2f' % i.price %>
+                    <%= link_to 'X', removeFromOrder_product_path(i), class: 'btn btn-danger pull-right' %>
+                  </div>
                 </div>
               </div>
+            <% end %>
+            <div class='list-group-item'>
+              <div class='row'>
+                <p class='pull-right' style='margin-right:5px'><strong>Subtotal: </strong>$<%= '%.2f' % @subtotal %></p>
+              </div>
             </div>
-          <% end %>
-          <div class='list-group-item'>
-            <div class='row'>
-              <p class='pull-right' style='margin-right:5px'><strong>Subtotal: </strong>$<%= '%.2f' % @subtotal %></p>
-            </div>
+            <br>
+            <%= link_to 'Checkout', 'javascript:void(0);', id: 'btnCheckout', class: 'btn btn-primary pull-right' %>
           </div>
         </div>
-
-        <%= link_to 'Checkout', 'javascript:void(0);', id: 'btnCheckout', class: 'btn btn-primary pull-right' %>
       </div>
 
-      <div class='col-lg-6' style='display:none'>
+      <div class='row' style='display:none'>
         <%= form_for @order, html: {multipart: true} do |f| %>
+          <div class='col-lg-6'>
 
-          <div class='form-group row'>
-            <%= f.label 'Name', class: 'col-sm-4 col-form-label' %>
-            <div class='col-sm-4'>
-              <%= f.text_field :billing_first_name, placeholder: 'First Name', required: true, class: 'form-control' %>
+            <div class='form-group row'>
+              <%= f.label 'Name', class: 'col-sm-4 col-form-label' %>
+              <div class='col-sm-4'>
+                <%= f.text_field :billing_first_name, placeholder: 'First Name', required: true, class: 'form-control' %>
+              </div>
+              <div class='col-sm-4'>
+                <%= f.text_field :billing_last_name, placeholder: 'Last Name', required: true, class: 'form-control' %>
+              </div>
             </div>
-            <div class='col-sm-4'>
-              <%= f.text_field :billing_last_name, placeholder: 'Last Name', required: true, class: 'form-control' %>
-            </div>
-          </div>
 
-          <div class='form-group row'>
-            <%= f.label :email, class: 'col-sm-4 col-form-label' %>
-            <div class='col-sm-8'>
-              <%= f.text_field :email, placeholder: 'you@example.com', required: true, class: 'form-control' %>
+            <div class='form-group row'>
+              <%= f.label :email, class: 'col-sm-4 col-form-label' %>
+              <div class='col-sm-8'>
+                <%= f.text_field :email, placeholder: 'you@example.com', required: true, class: 'form-control' %>
+              </div>
             </div>
-          </div>
 
-          <div class='form-group row'>
-            <%= f.label 'Address #1', class: 'col-sm-4 col-form-label' %>
-            <div class='col-sm-8'>
-              <%= f.text_field :billing_address1, required: true, class: 'form-control' %>
+            <div class='form-group row'>
+              <%= f.label 'Address #1', class: 'col-sm-4 col-form-label' %>
+              <div class='col-sm-8'>
+                <%= f.text_field :billing_address1, required: true, class: 'form-control' %>
+              </div>
             </div>
-          </div>
 
-          <div class='form-group row'>
-            <%= f.label 'Address #2', class: 'col-sm-4 col-form-label' %>
-            <div class='col-sm-8'>
-              <%= f.text_field :billing_address2, class: 'form-control' %>
+            <div class='form-group row'>
+              <%= f.label 'Address #2', class: 'col-sm-4 col-form-label' %>
+              <div class='col-sm-8'>
+                <%= f.text_field :billing_address2, class: 'form-control' %>
+              </div>
             </div>
-          </div>
 
-          <div class='form-group row'>
-            <%= f.label 'City', class: 'col-sm-4 col-form-label' %>
-            <div class='col-sm-8'>
-              <%= f.text_field :billing_city, required: true, class: 'form-control' %>
+            <div class='form-group row'>
+              <%= f.label 'City', class: 'col-sm-4 col-form-label' %>
+              <div class='col-sm-8'>
+                <%= f.text_field :billing_city, required: true, class: 'form-control' %>
+              </div>
             </div>
-          </div>
 
-          <div class='form-group row'>
-            <%= f.label 'State', class: 'col-sm-4 col-form-label' %>
-            <div class='col-sm-8'>
-              <%= f.text_field :billing_state, required: true, class: 'form-control' %>
+            <div class='form-group row'>
+              <%= f.label 'State', class: 'col-sm-4 col-form-label' %>
+              <div class='col-sm-8'>
+                <%= f.text_field :billing_state, required: true, class: 'form-control' %>
+              </div>
             </div>
-          </div>
 
-          <div class='form-group row'>
-            <%= f.label 'Zip', class: 'col-sm-4 col-form-label' %>
-            <div class='col-sm-8'>
-              <%= f.text_field :billing_zip, required: true, class: 'form-control' %>
-            </div>
-          </div>
-
-          <div class='form-group row'>
-            <%= f.label 'Billing address is same as shipping', class: 'col-sm-6 col-form-label' %>
-            <div class='col-sm-2'>
-              <%= f.checkbox :shipping_same_as_billing, class: 'form-control' %>
+            <div class='form-group row'>
+              <%= f.label 'Zip', class: 'col-sm-4 col-form-label' %>
+              <div class='col-sm-8'>
+                <%= f.text_field :billing_zip, required: true, class: 'form-control' %>
+              </div>
             </div>
           </div>
 
-          <% if !session[:order_id][:billing_accepted] %>
-            <%= f.submit "Proceed", method: 'update_shipping', class: 'btn btn-primary'%>
-          <% end %>
+          <div class='col-lg-6'>
+            <div class='form-group row'>
+              <%= f.label 'Billing address is same as shipping', class: 'col-sm-6 col-form-label' %>
+              <div class='col-sm-2'>
+                <%= f.check_box :shipping_same_as_billing, class: 'form-control' %>
+              </div>
+            </div>
+
+            <div class='form-group row'>
+              <%= f.label 'Full Name', class: 'col-sm-4 col-form-label' %>
+              <div class='col-sm-8'>
+                <%= f.text_field :shipping_name, required: true, class: 'form-control' %>
+              </div>
+            </div>
+
+            <div class='form-group row'>
+              <%= f.label 'Address', class: 'col-sm-4 col-form-label' %>
+              <div class='col-sm-8'>
+                <%= f.text_field :shipping_address1, required: true, class: 'form-control' %>
+              </div>
+            </div>
+
+            <div class='form-group row'>
+              <%= f.label 'Address (cont)', class: 'col-sm-4 col-form-label' %>
+              <div class='col-sm-8'>
+                <%= f.text_field :shipping_address2, class: 'form-control' %>
+              </div>
+            </div>
+
+            <div class='form-group row'>
+              <%= f.label 'City', class: 'col-sm-4 col-form-label' %>
+              <div class='col-sm-8'>
+                <%= f.text_field :shipping_city, required: true, class: 'form-control' %>
+              </div>
+            </div>
+
+            <div class='form-group row'>
+              <%= f.label 'State', class: 'col-sm-4 col-form-label' %>
+              <div class='col-sm-8'>
+                <%= f.text_field :shipping_state, required: true, class: 'form-control' %>
+              </div>
+            </div>
+
+            <div class='form-group row'>
+              <%= f.label 'Zip Code', class: 'col-sm-4 col-form-label' %>
+              <div class='col-sm-8'>
+                <%= f.text_field :shipping_zip, required: true, class: 'form-control' %>
+              </div>
+            </div>
+            <%= f.submit "Proceed", method: 'update_addresses', class: 'btn btn-primary'%>
+          </div>
         <% end %>
       </div>
-    </div>
 
-    <% if session[:order_id][:billing_accepted] %>
-      <div class='row'>
-        <div class='col-lg-6'>
-
-        </div>
-
-        <% if session[:order_id][:shipping_accepted] %>
+      <% if session[:order_id_addresses_accepted] %>
+        <div class='row'>
           <div class='col-lg-6'>
             <%= form_for @order, html: {multipart: true} do |f| %>
 
               <div class='form-group row'>
                 <%= f.label :card_type, class: 'col-sm-4 col-form-label' %>
                 <div class='col-sm-8'>
-                  <%= f.select :card_type, {'American Express', 'Discover', 'Mastercard', 'Visa'}, class: 'form-control' %>
+                  <%= f.select(:card_type, [['American Express',1], ['Discover',2], ['Mastercard',3], ['Visa',4]], class: 'form-control') %>
                 </div>
               </div>
 
@@ -128,10 +166,10 @@
               <div class='form-group row'>
                 <%= f.label 'Exp', class: 'col-sm-2 form-label' %>
                 <div class='col-sm-2'>
-                  <%= f.select :card_exp_month, {1,2,3,4,5,6,7,8,9,10,11,12}, class: 'form-control' %>
+                  <%= f.select(:card_exp_month, [1,2,3,4,5,6,7,8,9,10,11,12], class: 'form-control') %>
                 </div>
                 <div class='col-sm-2'>
-                  <%= f.select :card_exp_year, {2017,2018,2019,2020,2021,2022,2023,2024,2025}, class: 'form-control' %>
+                  <%= f.select(:card_exp_year, [2017,2018,2019,2020,2021,2022,2023,2024,2025], class: 'form-control') %>
                 </div>
 
                 <%= f.label 'CVV2', class: 'col-sm-2 form-label' %>
@@ -140,11 +178,14 @@
                 </div>
               </div>
 
+              <%= f.submit 'Submit Payment', method: 'submit_payment', class: 'btn btn-success' %>
+
             <% end %>
           </div>
-        <% end %>
-      </div>
+        </div>
+      <% end %>
+    <% else %>
+      <h4>Add Items to Your Cart and Come Back Here!</h4>
     <% end %>
   </div>
-
 </div>

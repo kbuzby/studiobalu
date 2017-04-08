@@ -30,8 +30,12 @@
         <%= button_to 'Edit Info', edit_product_path(@product), class: 'btn btn-warning', form: { style: 'display:inline'} %>
         <% end %>
 
-        <% if !available %>
-        <br/><p style='font-size:12px'><em>This item is not currently available</em></p>
+        <% if !available  %>
+          <% if !session[:order_id].nil? && @product.order_id == session[:order_id] %>
+            <br/><p style='font-size:12px'><em>This item is already in your cart</em></p>
+          <% else %>
+            <br/><p style='font-size:12px'><em>This item is not currently available</em></p>
+          <% end %>
         <% end %>
 
       </div>
