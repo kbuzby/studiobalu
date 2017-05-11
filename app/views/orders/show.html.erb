@@ -33,115 +33,123 @@
         </div>
       </div>
 
-      <div class='row' style='display:none'>
-        <%= form_for @order, html: {multipart: true} do |f| %>
+      <div id='divAddress' style='display:none'>
+      <%= form_for @order, html: {multipart: true} do |f| %>
+        <div class='row' >
           <div class='col-lg-6'>
-
+            <h3>Billing Address</h3>
             <div class='form-group row'>
               <%= f.label 'Name', class: 'col-sm-4 col-form-label' %>
               <div class='col-sm-4'>
-                <%= f.text_field :billing_first_name, placeholder: 'First Name', required: true, class: 'form-control' %>
+                <%= f.text_field :billing_first_name, placeholder: 'First Name', required: true, class: 'form-control', id: 'ef_billing_first_name' %>
               </div>
               <div class='col-sm-4'>
-                <%= f.text_field :billing_last_name, placeholder: 'Last Name', required: true, class: 'form-control' %>
+                <%= f.text_field :billing_last_name, placeholder: 'Last Name', required: true, class: 'form-control', id: 'ef_billing_last_name' %>
               </div>
             </div>
 
             <div class='form-group row'>
               <%= f.label :email, class: 'col-sm-4 col-form-label' %>
               <div class='col-sm-8'>
-                <%= f.text_field :email, placeholder: 'you@example.com', required: true, class: 'form-control' %>
+                <%= f.text_field :email, placeholder: 'you@example.com', required: true, class: 'form-control', id: 'ef_email' %>
               </div>
             </div>
 
             <div class='form-group row'>
               <%= f.label 'Address #1', class: 'col-sm-4 col-form-label' %>
               <div class='col-sm-8'>
-                <%= f.text_field :billing_address1, required: true, class: 'form-control' %>
+                <%= f.text_field :billing_address1, required: true, class: 'form-control', id: 'ef_billing_address1' %>
               </div>
             </div>
 
             <div class='form-group row'>
               <%= f.label 'Address #2', class: 'col-sm-4 col-form-label' %>
               <div class='col-sm-8'>
-                <%= f.text_field :billing_address2, class: 'form-control' %>
+                <%= f.text_field :billing_address2, class: 'form-control', id: 'ef_billing_address2' %>
               </div>
             </div>
 
             <div class='form-group row'>
               <%= f.label 'City', class: 'col-sm-4 col-form-label' %>
               <div class='col-sm-8'>
-                <%= f.text_field :billing_city, required: true, class: 'form-control' %>
+                <%= f.text_field :billing_city, required: true, class: 'form-control', id: 'ef_billing_city' %>
               </div>
             </div>
 
             <div class='form-group row'>
               <%= f.label 'State', class: 'col-sm-4 col-form-label' %>
               <div class='col-sm-8'>
-                <%= f.text_field :billing_state, required: true, class: 'form-control' %>
+                <%= f.text_field :billing_state, required: true, class: 'form-control', id: 'ef_billing_state' %>
               </div>
             </div>
 
             <div class='form-group row'>
               <%= f.label 'Zip', class: 'col-sm-4 col-form-label' %>
               <div class='col-sm-8'>
-                <%= f.text_field :billing_zip, required: true, class: 'form-control' %>
+                <%= f.text_field :billing_zip, required: true, class: 'form-control', id: 'ef_billing_zip' %>
               </div>
             </div>
           </div>
 
           <div class='col-lg-6'>
+            <h3>Shipping Address</h3>
             <div class='form-group row'>
-              <%= f.label 'Billing address is same as shipping', class: 'col-sm-6 col-form-label' %>
+              <%= f.label 'Same as Billing Address', class: 'col-sm-4 col-form-label' %>
               <div class='col-sm-2'>
-                <%= f.check_box :shipping_same_as_billing, class: 'form-control' %>
+                <%= f.check_box :shipping_same_as_billing, id: 'cb_shipping_same_as_billing' %>
               </div>
             </div>
 
             <div class='form-group row'>
               <%= f.label 'Full Name', class: 'col-sm-4 col-form-label' %>
               <div class='col-sm-8'>
-                <%= f.text_field :shipping_name, required: true, class: 'form-control' %>
+                <%= f.text_field :shipping_name, required: true, class: 'form-control', id: 'ef_shipping_name' %>
               </div>
             </div>
 
             <div class='form-group row'>
-              <%= f.label 'Address', class: 'col-sm-4 col-form-label' %>
+              <%= f.label 'Address #1', class: 'col-sm-4 col-form-label' %>
               <div class='col-sm-8'>
-                <%= f.text_field :shipping_address1, required: true, class: 'form-control' %>
+                <%= f.text_field :shipping_address1, required: true, class: 'form-control', id: 'ef_shipping_address1' %>
               </div>
             </div>
 
             <div class='form-group row'>
-              <%= f.label 'Address (cont)', class: 'col-sm-4 col-form-label' %>
+              <%= f.label 'Address #2', class: 'col-sm-4 col-form-label' %>
               <div class='col-sm-8'>
-                <%= f.text_field :shipping_address2, class: 'form-control' %>
+                <%= f.text_field :shipping_address2, class: 'form-control', id: 'ef_shipping_address2' %>
               </div>
             </div>
 
             <div class='form-group row'>
               <%= f.label 'City', class: 'col-sm-4 col-form-label' %>
               <div class='col-sm-8'>
-                <%= f.text_field :shipping_city, required: true, class: 'form-control' %>
+                <%= f.text_field :shipping_city, required: true, class: 'form-control', id: 'ef_shipping_city' %>
               </div>
             </div>
 
             <div class='form-group row'>
               <%= f.label 'State', class: 'col-sm-4 col-form-label' %>
               <div class='col-sm-8'>
-                <%= f.text_field :shipping_state, required: true, class: 'form-control' %>
+                <%= f.text_field :shipping_state, required: true, class: 'form-control', id: 'ef_shipping_state' %>
               </div>
             </div>
 
             <div class='form-group row'>
               <%= f.label 'Zip Code', class: 'col-sm-4 col-form-label' %>
               <div class='col-sm-8'>
-                <%= f.text_field :shipping_zip, required: true, class: 'form-control' %>
+                <%= f.text_field :shipping_zip, required: true, class: 'form-control', id: 'ef_shipping_zip' %>
               </div>
             </div>
+
+          </div>
+        </div>
+        <div class='row'>
+          <div class='col-sm-12'>
             <%= f.submit "Proceed", method: 'update_addresses', class: 'btn btn-primary'%>
           </div>
-        <% end %>
+        </div>
+      <% end %>
       </div>
 
       <% if session[:order_id_addresses_accepted] %>
