@@ -111,7 +111,7 @@ class ProductsController < ApplicationController
   end
 
   def removeFromOrder
-    @product = Product.find(params{:id})
+    @product = Product.find(params[:id])
 
     if @product.update_attributes({order_id: nil})
       redirect_to url_for(controller: 'orders', action: 'show', id: session[:order_id])

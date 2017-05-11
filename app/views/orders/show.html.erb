@@ -5,7 +5,7 @@
   </div>
 
   <div class='panel-body'>
-    <% if !@order.nil? %>
+    <% if !@order.nil? && @orderItems.length > 0%>
       <div class='row'>
         <div class='col-lg-12'>
           <div class='list-group'>
@@ -17,7 +17,7 @@
                   </div>
                   <div class='col-sm-4'>
                     $<%= '%.2f' % i.price %>
-                    <%= link_to 'X', removeFromOrder_product_path(i), class: 'btn btn-danger pull-right' %>
+                    <%= link_to 'X', removeFromOrder_product_path(i), class: 'btn btn-danger pull-right', method: :post %>
                   </div>
                 </div>
               </div>
