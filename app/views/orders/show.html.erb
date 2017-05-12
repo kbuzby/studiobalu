@@ -28,13 +28,15 @@
               </div>
             </div>
             <br>
-            <%= link_to 'Checkout', 'javascript:void(0);', id: 'btnCheckout', class: 'btn btn-primary pull-right' %>
+            <% if !session[:order_id_addresses_accepted] %>
+              <%= link_to 'Checkout', 'javascript:void(0);', id: 'btnCheckout', class: 'btn btn-primary pull-right' %>
+            <% end %>
           </div>
         </div>
       </div>
 
       <div id='divAddress' style='display:none'>
-      <%= form_for @order, html: {multipart: true} do |f| %>
+      <%= form_for @order, url: update_addresses_order_path(@order), html: {multipart: true} do |f| %>
         <div class='row' >
           <div class='col-lg-6'>
             <h3>Billing Address</h3>
@@ -146,7 +148,7 @@
         </div>
         <div class='row'>
           <div class='col-sm-12'>
-            <%= f.submit "Proceed", method: 'update_addresses', class: 'btn btn-primary'%>
+            <%= f.submit "Proceed", class: 'btn btn-primary'%>
           </div>
         </div>
       <% end %>
@@ -155,12 +157,12 @@
       <% if session[:order_id_addresses_accepted] %>
         <div class='row'>
           <div class='col-lg-6'>
-            <%= form_for @order, html: {multipart: true} do |f| %>
+            <%= form_for @order, url: submit_payment_order_path(@order), html: {multipart: true} do |f| %>
 
               <div class='form-group row'>
                 <%= f.label :card_type, class: 'col-sm-4 col-form-label' %>
                 <div class='col-sm-8'>
-                  <%= f.select(:card_type, [['American Express',1], ['Discover',2], ['Mastercard',3], ['Visa',4]], class: 'form-control') %>
+                  <%= f.select :card_type, options_for_select([['American Express',1], ['Discover',2], ['Mastercard',3], ['Visa',4]]), {}, class: 'form-control' %>
                 </div>
               </div>
 
@@ -172,22 +174,22 @@
               </div>
 
               <div class='form-group row'>
-                <%= f.label 'Exp', class: 'col-sm-2 form-label' %>
+                <%= f.label 'Expiration Date', class: 'col-sm-4 form-label' %>
                 <div class='col-sm-2'>
-                  <%= f.select(:card_exp_month, [1,2,3,4,5,6,7,8,9,10,11,12], class: 'form-control') %>
+                  <%= f.select :card_exp_month, options_for_select([1,2,3,4,5,6,7,8,9,10,11,12]), {}, class: 'form-control' %>
                 </div>
-                <div class='col-sm-2'>
-                  <%= f.select(:card_exp_year, [2017,2018,2019,2020,2021,2022,2023,2024,2025], class: 'form-control') %>
+                <div class='col-sm-3'>
+                  <%= f.select :card_exp_year, options_for_select([2017,2018,2019,2020,2021,2022,2023,2024,2025]), {}, class: 'form-control'%>
                 </div>
 
-                <%= f.label 'CVV2', class: 'col-sm-2 form-label' %>
+                <%= f.label 'CVV2', class: 'col-sm-1 form-label' %>
                 <div class='col-sm-2'>
                   <%= f.text_field :card_cvv2, required: true, class: 'form-control' %>
                 </div>
               </div>
 
-              <%= f.submit 'Submit Payment', method: 'submit_payment', class: 'btn btn-success' %>
-
+              <%= f.submit 'Submit Payment', class: 'btn btn-success' %>
+              <%= link_to 'Cancel Order', cancel_order_path(@order), method: :patch, class: 'btn btn-danger' %>
             <% end %>
           </div>
         </div>

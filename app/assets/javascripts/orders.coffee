@@ -72,9 +72,9 @@ remove_ef_change_handlers = ->
 
 
 toggle_ef_shipping_disabled = (value) ->
-  $('#ef_shipping_name')[0].disabled = value
-  $('#ef_shipping_address1')[0].disabled = value
-  $('#ef_shipping_address2')[0].disabled = value
-  $('#ef_shipping_city')[0].disabled = value
-  $('#ef_shipping_state')[0].disabled = value
-  $('#ef_shipping_zip')[0].disabled = value
+  $('#ef_shipping_name').prop('readonly',value)
+  $('#ef_shipping_address1').prop('readonly',value)
+  $('#ef_shipping_address2').prop('readonly',value)
+  $('#ef_shipping_city').prop('readonly',value)
+  $('#ef_shipping_state').prop('readonly',value)
+  $('#ef_shipping_zip').prop('readonly',value)

@@ -28,8 +28,9 @@ Rails.application.routes.draw do
 
   resources :orders, only: [:create,:destroy] do
     post 'submit_payment', on: :member
-    put 'update_shipping', on: :member
-    put 'update_billing', on: :member
+    patch 'update_addresses', on: :member
+    patch 'cancel', on: :member
+    patch 'submit_payment', on: :member
   end
   get '/order', to: 'orders#show'
 
