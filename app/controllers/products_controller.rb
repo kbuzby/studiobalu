@@ -96,8 +96,16 @@ class ProductsController < ApplicationController
 
     @product = Product.find(params[:id])
 
+    #if the current users order has already been placed we need to create a new one
+    if @order.status == 'ordered'
+      @order = Order.create!
+      session[:order_id] = @order.id
+    end
+
     if @product.order_id.nil?
-      if @product.update_attributes({order_id: @order.id})
+      if @product.update_attributes!({order_id: @order.id})
+        @order.subtotal = @order.subtotal.nil? ? @product.price : @order.subtotal + @product.price
+        @order.save!
         redirect_to product_path(@product)
       else
         flash[:error] = "There was a problem adding the item to your cart"
@@ -113,8 +121,14 @@ class ProductsController < ApplicationController
   def removeFromOrder
     @product = Product.find(params[:id])
 
-    if @product.update_attributes({order_id: nil})
-      redirect_to url_for(controller: 'orders', action: 'show', id: session[:order_id])
+    if @order.status != 'ordered'
+      @order.subtotal -= @product.price
+      @order.save!
+      if @product.update_attributes({order_id: nil})
+        redirect_to url_for(controller: 'orders', action: 'show', id: session[:order_id])
+      end
+    else
+      #TODO show error that we can't remove the product because the order is already placed
     end
   end
 

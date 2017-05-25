@@ -1,8 +1,9 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 #non default
 #paypal
 gem 'paypal-sdk-rest'
+gem 'braintree', '~> 2.75.0'
 
 #carrierwave for file uploading
 gem 'carrierwave'

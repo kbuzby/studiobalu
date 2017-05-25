@@ -10,4 +10,10 @@ class MessageMailer < ApplicationMailer
 
   end
 
+  def new_order(order)
+    @order = order
+    @orderItems = Product.where(order_id: @order.id)
+    mail(subject: "New Order Placed!")
+  end
+
 end

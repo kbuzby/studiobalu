@@ -26,11 +26,8 @@ Rails.application.routes.draw do
 
   resources :gallery_category
 
-  resources :orders, only: [:create,:destroy] do
-    post 'submit_payment', on: :member
-    patch 'update_addresses', on: :member
-    patch 'cancel', on: :member
-    patch 'submit_payment', on: :member
+  resources :orders, only: [:create,:destroy,:update] do
+    patch 'payment_approved', on: :member
   end
   get '/order', to: 'orders#show'
 

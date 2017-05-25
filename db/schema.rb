@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170307032203) do
+ActiveRecord::Schema.define(version: 20170520193741) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "name"
@@ -41,25 +41,21 @@ ActiveRecord::Schema.define(version: 20170307032203) do
     t.string   "status"
     t.date     "order_date"
     t.string   "payment_id"
-    t.decimal  "subtotal",           precision: 8, scale: 2
-    t.decimal  "tax",                precision: 8, scale: 2
-    t.decimal  "shipping",           precision: 8, scale: 2
-    t.decimal  "total",              precision: 8, scale: 2
-    t.datetime "created_at",                                 null: false
-    t.datetime "updated_at",                                 null: false
-    t.string   "billing_first_name"
-    t.string   "billing_last_name"
-    t.string   "billing_address1"
-    t.string   "billing_address2"
-    t.string   "billing_city"
-    t.string   "billing_state"
-    t.integer  "billing_zip"
+    t.decimal  "subtotal",          precision: 8, scale: 2
+    t.decimal  "tax",               precision: 8, scale: 2
+    t.decimal  "shipping",          precision: 8, scale: 2
+    t.decimal  "total",             precision: 8, scale: 2
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
     t.string   "shipping_name"
     t.string   "shipping_address1"
     t.string   "shipping_address2"
     t.string   "shipping_city"
     t.string   "shipping_state"
     t.integer  "shipping_zip"
+    t.string   "sale_id"
+    t.string   "name"
+    t.decimal  "transaction_fee",   precision: 8, scale: 2
   end
 
   create_table "products", force: :cascade do |t|
