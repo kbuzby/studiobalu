@@ -30,5 +30,6 @@ Rails.application.routes.draw do
     patch 'payment_approved', on: :member
   end
   get '/order', to: 'orders#show'
+  get '/orders/manage', to: 'orders#manage'
 
 end

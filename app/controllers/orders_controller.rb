@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  skip_before_action :require_login
+  skip_before_action :require_login, except: [:manage]
 
   require  'paypal-sdk-rest'
   include PayPal::SDK::REST
@@ -96,6 +96,25 @@ class OrdersController < ApplicationController
       end
     end
 
+  end
+
+  def manage
+    @panels = []
+    @panels.push({
+      id: 'placedOrders',
+      title: 'Recently Placed Orders',
+      orders: ::Order.where(status: 'ordered')
+      })
+    @panels.push({
+      id: 'shippedOrders',
+      title: 'Recently Shipped Orders',
+      orders: ::Order.where(status: 'shipped')
+      })
+    @panels.push({
+      id: 'completedOrders',
+      title: 'Completed Orders',
+      orders: ::Order.where(status: 'completed')
+      })
   end
 
   def payment_approved

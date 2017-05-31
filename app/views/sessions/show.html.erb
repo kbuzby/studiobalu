@@ -1,5 +1,7 @@
 <div class='container'>
   <h2>Welcome, <%=@user.name%>!</h2>
+  <a class='btn btn-primary' href='/orders/manage'>Manage Orders</a>
+  <br/><br/>
   <a class='btn btn-primary' href='/gallery/new'><span class='glyphicon glyphicon-plus'></span> Add Gallery Item</a>
   <%= link_to 'View/Edit Gallery Items', products_path, class: 'btn btn-primary' %>
   <br/><br/>

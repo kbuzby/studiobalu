@@ -1,0 +1,92 @@
+<% @panels.each do |p| %>
+  <div class='panel-group'>
+    <div class='panel panel-info'>
+      <div class='panel-heading'>
+        <h3 class='panel-title'><%= p[:title] %></h3>
+      </div>
+
+      <div class='panel-body' id='<%= p[:id] %>'>
+        <div class='panel-group'>
+          <% p[:orders].each do |i| %>
+            <div class='panel panel-default'>
+              <div class='panel-heading'>
+                <div class='panel-title'>
+                  <a data-toggle='collapse' data-parent='#<%= p[:id] %>' href='#Order-<%= i.id %>'>
+                    Order #<%= i.id %>
+                  </a>
+                  <span class='pull-right'>Total: <%= i.total %></span>
+                </div>
+              </div>
+              <div id='Order-<%= i.id %>' class='panel-collpase collapse'>
+                <div class='panel-body'>
+                  <div class='row'>
+                    <div class='col-md-4'>
+                      <!-- Ordered Details -->
+                      <h4>Order Details</h4>
+                      <p>Ordered by: <%= i.name %></p>
+                      <p><%= i.email %></p>
+                      <p>Ordered on: <%= i.order_date %></p>
+
+                    </div>
+
+                    <div class='col-sm-4'>
+                      <!-- Shipping Info-->
+                      <h4>Shipping Info</h4>
+                      <p><%= i.shipping_name%></p>
+                      <p><%= i.shipping_address1%></p>
+                      <% if !i.shipping_address2.nil? %>
+                        <p><%= i.shipping_address2%></p>
+                      <% end %>
+                      <p><%= i.shipping_city.to_s + ', ' + i.shipping_state.to_s + ' ' + i.shipping_zip.to_s %></p>
+                    </div>
+
+                    <div class='col-sm-4'>
+                      <!-- Item List -->
+                      <div class='list-group'>
+                        <% Product.where(order_id: i.id).each do |j| %>
+                          <div class='list-group-item'>
+                            <div class='row'>
+                              <div class='col-sm-8'>
+                                <%= j.name %>
+                              </div>
+                              <div class='col-sm-4'>
+                                $<%= '%.2f' % j.price %>
+                              </div>
+                            </div>
+                          </div>
+                        <% end %>
+                        <div class='list-group-item'>
+                          <div class='row'>
+                            <div class='col-sm-8 pull-right'>
+                              <span class='col-sm-6'>Subtotal: </span>
+                              <span class='col-sm-6'>$<%='%.2f' % i.subtotal %></span>
+                            </div>
+                          </div>
+                          <div class='row'>
+                            <div class='col-sm-8 pull-right'>
+                              <span class='col-sm-6'>Tax: </span>
+                              <span class='col-sm-6'>$<%='%.2f' % i.tax %></span>
+                            </div>
+                          </div>
+                          <div class='row'>
+                            <div class='col-sm-8 pull-right'>
+                              <span class='col-sm-6'>Shipping: </span>
+                              <span class='col-sm-6'>$<%='%.2f' % i.shipping %></span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class='row'>
+                    <!-- button row -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
