@@ -26,10 +26,12 @@ Rails.application.routes.draw do
 
   resources :gallery_category
 
-  resources :orders, only: [:create,:destroy,:update] do
+  resources :orders, only: [:show, :create,:destroy,:update] do
     patch 'payment_approved', on: :member
+    get 'shipped', on: :member
+    get 'completed', on: :member
   end
-  get '/order', to: 'orders#show'
-  get '/orders/manage', to: 'orders#manage'
+  get '/cart', to: 'orders#cart'
+  get '/admin/orders', to: 'orders#manage'
 
 end

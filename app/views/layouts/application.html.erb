@@ -8,9 +8,7 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body <% if content_for?(:body_attributes) %>
-      <%= yield(:body_attributes) %>
-    <% end %>>
+  <body>
 
     <div class="container well main-well">
 
@@ -46,7 +44,7 @@
               <% end %>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-              <li><%=link_to 'View Cart', url_for(controller: 'orders', action: 'show', id: session[:order_id]) %></li>
+              <li><%=link_to 'View Cart', url_for(controller: 'orders', action: 'cart'), :"data-no-turbolink" => true %></li>
               <%if admin?%>
                 <li class=<%=is_active('admin')%>><a href="/admin">Admin <span class="glyphicon glyphicon-cog"></span></a></li>
               <% end %>

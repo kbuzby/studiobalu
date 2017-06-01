@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170520193741) do
+ActiveRecord::Schema.define(version: 20170531030452) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "name"
@@ -62,11 +62,12 @@ ActiveRecord::Schema.define(version: 20170520193741) do
     t.string   "name"
     t.string   "description"
     t.decimal  "price",               precision: 8, scale: 2
-    t.datetime "created_at",                                  null: false
-    t.datetime "updated_at",                                  null: false
+    t.datetime "created_at",                                                  null: false
+    t.datetime "updated_at",                                                  null: false
     t.integer  "gallery_category_id"
     t.integer  "primary_image"
     t.integer  "order_id"
+    t.boolean  "archived",                                    default: false
     t.index ["gallery_category_id"], name: "index_products_on_gallery_category_id"
   end
 

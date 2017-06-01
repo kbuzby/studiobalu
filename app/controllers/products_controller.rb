@@ -8,9 +8,9 @@ class ProductsController < ApplicationController
     @category = GalleryCategory.find_by(name: params[:category])
 
     if @category != nil
-      @products = Product.where(gallery_category: @category)
+      @products = Product.where('archived = ? AND gallery_category_id = ?', false, @category)
     else
-      @products = Product.all
+      @products = Product.where(archived: false)
     end
 
     @images = {}
@@ -47,15 +47,17 @@ class ProductsController < ApplicationController
 
     @product = Product.find(params[:id])
 
-    if @product.destroy!
-      @images = ItemImage.where(product_id: @product.id)
+    if !@product.order_id.nil?
+      if @product.destroy!
+        @images = ItemImage.where(product_id: @product.id)
 
-      @images.each do |i|
-        i.destroy!
+        @images.each do |i|
+          i.destroy!
+        end
+        redirect_to admin_path
+      else
+        redirect_to edit_product_path(@product)
       end
-      redirect_to admin_path
-    else
-      redirect_to edit_product_path(@product)
     end
 
   end
@@ -97,7 +99,7 @@ class ProductsController < ApplicationController
     @product = Product.find(params[:id])
 
     #if the current users order has already been placed we need to create a new one
-    if @order.status == 'ordered'
+    if @order.placed?
       @order = Order.create!
       session[:order_id] = @order.id
     end
@@ -121,7 +123,9 @@ class ProductsController < ApplicationController
   def removeFromOrder
     @product = Product.find(params[:id])
 
-    if @order.status != 'ordered'
+    @order = ::Order.find(@product.order_id)
+
+    if !@order.placed?
       @order.subtotal -= @product.price
       @order.save!
       if @product.update_attributes({order_id: nil})

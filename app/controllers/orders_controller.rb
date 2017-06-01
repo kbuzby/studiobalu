@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  skip_before_action :require_login, except: [:manage]
+  skip_before_action :require_login, except: [:manage, :shipped, :completed]
 
   require  'paypal-sdk-rest'
   include PayPal::SDK::REST
@@ -51,51 +51,14 @@ class OrdersController < ApplicationController
   end
 
 
-  def show
+  def cart
     if !session[:order_id].nil?
-      @order = ::Order.find(session[:order_id])
-
-      if !@order.nil?
-
-        @orderItems = Product.where(order_id: @order.id)
-
-        if @order.status == 'ordered'
-          @cartTitle = 'Thanks for your order!'
-          @orderCompleted = true
-        else
-          #else the order hasn't been placed yet
-          @cartTitle = 'Your Cart'
-          @orderCompleted = false
-
-          #update order costs here
-          @order.tax = @order.subtotal * 0.07
-          @order.shipping = 10
-          @order.total = @order.subtotal + @order.tax + @order.shipping
-          @order.save!
-
-          @transactions = {
-            transactions: [{
-              item_list: {
-                items: create_item_array(@order.id)
-              },
-              amount: {
-                total: '%.2f' % @order.total,
-                currency: 'USD',
-                details: {
-                  subtotal: '%.2f' % @order.subtotal,
-                  tax: '%.2f' % @order.tax,
-                  shipping: '%.2f' % @order.shipping
-                }
-              },
-              description: 'Order from Studio Balu Designs'
-          }]}.to_json.html_safe
-        end
-
-      else
-        @cartTitle = 'Cart Empty'
-      end
+      render_order(session[:order_id])
     end
+  end
 
+  def show
+    render_order(params[:id])
   end
 
   def manage
@@ -147,6 +110,33 @@ class OrdersController < ApplicationController
 
     #need to send email to auntjen that an order was placed
     MessageMailer.new_order(@order).deliver
+
+    redirect_to
+  end
+
+  def shipped
+    @order = ::Order.find(params[:id])
+
+    if @order.update_attributes!({status: 'shipped'})
+      #TODO send some kind of email to the user
+      redirect_to admin_orders_path
+    else
+      #do some error thing
+    end
+  end
+
+  def completed
+    @order = ::Order.find(params[:id])
+
+    if @order.update_attributes({status: 'completed'})
+      #archive the items in the order here
+      Product.where(order_id: @order.id).each do |i|
+        i.update_attributes!({archived: true})
+      end
+      redirect_to admin_orders_path
+    else
+      #do some error thing
+    end
   end
 
   def destroy
@@ -170,5 +160,51 @@ class OrdersController < ApplicationController
     return item_array
   end
 
+  def render_order(order_id)
+
+    @order = ::Order.find(order_id)
+
+    if !@order.nil?
+
+      @orderItems = Product.where(order_id: @order.id)
+
+      if @order.placed?
+        @cartTitle = 'Thanks for your order!'
+        @orderCompleted = true
+      else
+        #else the order hasn't been placed yet
+        @cartTitle = 'Your Cart'
+        @orderCompleted = false
+
+        #update order costs here
+        @order.tax = @order.subtotal * 0.07
+        @order.shipping = 10
+        @order.total = @order.subtotal + @order.tax + @order.shipping
+        @order.save!
+
+        @transactions = {
+          transactions: [{
+            item_list: {
+              items: create_item_array(@order.id)
+            },
+            amount: {
+              total: '%.2f' % @order.total,
+              currency: 'USD',
+              details: {
+                subtotal: '%.2f' % @order.subtotal,
+                tax: '%.2f' % @order.tax,
+                shipping: '%.2f' % @order.shipping
+              }
+            },
+            description: 'Order from Studio Balu Designs'
+        }]}.to_json.html_safe
+      end
+
+    else
+      @cartTitle = 'Cart Empty'
+    end
+
+    render "show"
+  end
 
 end
