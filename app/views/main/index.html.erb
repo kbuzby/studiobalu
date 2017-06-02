@@ -11,23 +11,19 @@
             <li data-target="#carousel-example-generic" data-slide-to="1"></li>
             <li data-target="#carousel-example-generic" data-slide-to="2"></li>
             <li data-target="#carousel-example-generic" data-slide-to="3"></li>
-            <li data-target="#carousel-example-generic" data-slide-to="4"></li>
           </ol>
           <div class="carousel-inner" role="listbox" >
             <div class="item active" style="height:500px">
-              <%= image_tag image_url('carousel/1.jpg'), style: 'width:80%;margin:auto' %>
+              <%= image_tag image_url('carousel/1.jpg'), style: 'min-height:100%;min-width:100%;margin:auto' %>
             </div>
             <div class="item" style="height:500px">
-              <%= image_tag image_url('carousel/2.jpg'), style: 'width:80%;margin:auto' %>
+              <%= image_tag image_url('carousel/2.jpg'), style: 'min-height:100%;min-width:100%;margin:auto' %>
             </div>
             <div class="item" style="height:500px">
-              <%= image_tag image_url('carousel/3.jpg'), style: 'width:80%;margin:auto' %>
+              <%= image_tag image_url('carousel/3.jpg'), style: 'min-height:100%;min-width:100%;margin:auto' %>
             </div>
             <div class="item" style="height:500px">
-              <%= image_tag image_url('carousel/4.jpg'), style: 'width:80%;margin:auto' %>
-            </div>
-            <div class="item" style="height:500px">
-              <%= image_tag image_url('carousel/5.jpg'), style: 'width:80%;margin:auto' %>
+              <%= image_tag image_url('carousel/4.jpg'), style: 'min-height:100%;min-width:100%;margin:auto' %>
             </div>
           </div>
           <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
@@ -40,7 +36,7 @@
           </a>
         </div><br/>
 
-        <p>Put some short small bio / intro here </p>
+        <p>Jenni Zimmerman is an artist who has worked with glass for over 25 years, starting with stained glass, she has focused on glass fusing for about 15 years.  Starting small with cabochons for jewelry to larger dishes for display and servings she also uses a variety of recycled glass for a variety of unusual items. </p>
         <%= link_to 'Read More About Us', '/about', class: 'btn btn-primary' %>
         <%= link_to 'View Gallery', products_path, class: 'btn btn-primary' %>
       </div>

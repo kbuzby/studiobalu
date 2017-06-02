@@ -17,8 +17,13 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+html {
+  position: relative;
+  min-height: 100%;
+}
+
 body {
-  padding-top: 20px;
+  padding-top: 10px;
   background-image: image_url('Background-Color-5.gif');
 }
 
@@ -30,4 +35,16 @@ body {
 
 .navbar-nav.navbar-right:last-child {
   margin-right: 20px;
+}
+
+.footer {
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  background: rgb(230, 240, 100);
+  background: rgba(230, 240, 100, 0.6);
+}
+
+.footer a {
+  text-decoration: none;
+  color: inherit;
 }
