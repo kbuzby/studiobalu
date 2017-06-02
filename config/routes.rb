@@ -21,9 +21,18 @@ Rails.application.routes.draw do
   #ActiveRecord resource pages
   resources :products, path: 'gallery' do
     resources :item_images
+    post 'addToOrder', on: :member
+    post 'removeFromOrder', on: :member
   end
 
-
   resources :gallery_category
+
+  resources :orders, only: [:show, :create,:destroy,:update] do
+    patch 'payment_approved', on: :member
+    get 'shipped', on: :member
+    get 'completed', on: :member
+  end
+  get '/cart', to: 'orders#cart'
+  get '/admin/orders', to: 'orders#manage'
 
 end

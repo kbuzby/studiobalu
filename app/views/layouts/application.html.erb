@@ -44,7 +44,7 @@
               <% end %>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="/cart">View Cart</a></li>
+              <li><%=link_to 'View Cart', url_for(controller: 'orders', action: 'cart'), :"data-no-turbolink" => true %></li>
               <%if admin?%>
                 <li class=<%=is_active('admin')%>><a href="/admin">Admin <span class="glyphicon glyphicon-cog"></span></a></li>
               <% end %>
@@ -52,6 +52,8 @@
           </div>
         </div>
       </nav>
+
+      <!--TODO insert flash message thing here -->
 
       <%= yield %>
 

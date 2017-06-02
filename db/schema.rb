@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170221044528) do
+ActiveRecord::Schema.define(version: 20170531030452) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "name"
@@ -36,15 +36,38 @@ ActiveRecord::Schema.define(version: 20170221044528) do
     t.index ["product_id"], name: "index_item_images_on_product_id"
   end
 
+  create_table "orders", force: :cascade do |t|
+    t.string   "email"
+    t.string   "status"
+    t.date     "order_date"
+    t.string   "payment_id"
+    t.decimal  "subtotal",          precision: 8, scale: 2
+    t.decimal  "tax",               precision: 8, scale: 2
+    t.decimal  "shipping",          precision: 8, scale: 2
+    t.decimal  "total",             precision: 8, scale: 2
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
+    t.string   "shipping_name"
+    t.string   "shipping_address1"
+    t.string   "shipping_address2"
+    t.string   "shipping_city"
+    t.string   "shipping_state"
+    t.integer  "shipping_zip"
+    t.string   "sale_id"
+    t.string   "name"
+    t.decimal  "transaction_fee",   precision: 8, scale: 2
+  end
+
   create_table "products", force: :cascade do |t|
     t.string   "name"
     t.string   "description"
     t.decimal  "price",               precision: 8, scale: 2
-    t.boolean  "sold"
-    t.datetime "created_at",                                  null: false
-    t.datetime "updated_at",                                  null: false
+    t.datetime "created_at",                                                  null: false
+    t.datetime "updated_at",                                                  null: false
     t.integer  "gallery_category_id"
     t.integer  "primary_image"
+    t.integer  "order_id"
+    t.boolean  "archived",                                    default: false
     t.index ["gallery_category_id"], name: "index_products_on_gallery_category_id"
   end
 

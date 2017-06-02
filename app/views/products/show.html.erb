@@ -6,7 +6,7 @@
   </div>
   <div class='panel-body'>
 
-    <div class='col-lg-6'>
+    <div class='col-md-6'>
       <div class='row'>
           <%= image_tag @primaryImage.image_path.url, id: 'big-image', class: 'img-thumbnail', style: 'margin-bottom: 5px' %>
       </div>
@@ -16,16 +16,28 @@
       <% end %>
       </div>
     </div>
-    <div class='col-lg-6'>
+    <div class='col-md-6'>
       <p class='product-text'><%= @product.description %></p>
       <br/>
-      <div class='product-text'>$<%= '%.2f' % @product.price %> &emsp;&emsp;
-      <!--<%= link_to 'Add to Cart', '#', class: 'btn btn-primary' %>-->
-      <br>
-      <p>Shopping cart will be added soon, please <a href="/contact">Contact us</a> for availability!</p>
+      <div class='product-text'>
+        <% available = @product.order_id.nil? %>
+
+        $<%= '%.2f' % @product.price %> &emsp;&emsp;
+
+        <%= button_to 'Add to Cart', addToOrder_product_path(@product), method: :post, class: 'btn btn-primary', form: { style: 'display:inline'}, disabled: !available %>
+
         <% if admin? %>
-          <%= link_to 'Edit Info', edit_product_path(@product), class: 'btn btn-warning' %>
+        <%= button_to 'Edit Info', edit_product_path(@product), class: 'btn btn-warning', form: { style: 'display:inline'} %>
         <% end %>
+
+        <% if !available  %>
+          <% if !session[:order_id].nil? && @product.order_id == session[:order_id] %>
+            <br/><p style='font-size:12px'><em>This item is already in your cart</em></p>
+          <% else %>
+            <br/><p style='font-size:12px'><em>This item is not currently available</em></p>
+          <% end %>
+        <% end %>
+
       </div>
 
 

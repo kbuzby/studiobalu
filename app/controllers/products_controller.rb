@@ -1,14 +1,16 @@
 class ProductsController < ApplicationController
+  include CurrentOrder
   skip_before_action :require_login
+  before_action :set_order, only: :addToOrder
 
   def index
 
     @category = GalleryCategory.find_by(name: params[:category])
 
     if @category != nil
-      @products = Product.where(gallery_category: @category)
+      @products = Product.where('archived = ? AND gallery_category_id = ?', false, @category)
     else
-      @products = Product.all
+      @products = Product.where(archived: false)
     end
 
     @images = {}
@@ -44,16 +46,18 @@ class ProductsController < ApplicationController
     end
 
     @product = Product.find(params[:id])
-    
-    if @product.destroy!
-      @images = ItemImage.where(product_id: @product.id)
 
-      @images.each do |i|
-        i.destroy!
+    if !@product.order_id.nil?
+      if @product.destroy!
+        @images = ItemImage.where(product_id: @product.id)
+
+        @images.each do |i|
+          i.destroy!
+        end
+        redirect_to admin_path
+      else
+        redirect_to edit_product_path(@product)
       end
-      redirect_to admin_path
-    else
-      redirect_to edit_product_path(@product)
     end
 
   end
@@ -88,6 +92,48 @@ class ProductsController < ApplicationController
     @primaryImage = ItemImage.find(@product.primary_image)
     @images = ItemImage.where(product_id: @product.id)
     @newImage = ItemImage.new
+  end
+
+  def addToOrder
+
+    @product = Product.find(params[:id])
+
+    #if the current users order has already been placed we need to create a new one
+    if @order.placed?
+      @order = Order.create!
+      session[:order_id] = @order.id
+    end
+
+    if @product.order_id.nil?
+      if @product.update_attributes!({order_id: @order.id})
+        @order.subtotal = @order.subtotal.nil? ? @product.price : @order.subtotal + @product.price
+        @order.save!
+        redirect_to product_path(@product)
+      else
+        flash[:error] = "There was a problem adding the item to your cart"
+        redirect :back
+      end
+    else
+      flash[:error] = "This item is no longer available"
+      redirect_back(fallback_location: product_path(@product))
+    end
+
+  end
+
+  def removeFromOrder
+    @product = Product.find(params[:id])
+
+    @order = ::Order.find(@product.order_id)
+
+    if !@order.placed?
+      @order.subtotal -= @product.price
+      @order.save!
+      if @product.update_attributes({order_id: nil})
+        redirect_to url_for(controller: 'orders', action: 'show', id: session[:order_id])
+      end
+    else
+      #TODO show error that we can't remove the product because the order is already placed
+    end
   end
 
   private
