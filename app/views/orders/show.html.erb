@@ -95,7 +95,7 @@
   </div>
 </div>
 <% if !@orderCompleted %>
-  <%= javascript_tag do %>
+  <%= javascript_tag 'data-turbolinks-eval': false do %>
     document.addEventListener('turbolinks:load',function() {
       paypal.Button.render({
         env: 'sandbox',
@@ -107,7 +107,8 @@
         },
         commit: true,
         client: {
-          sandbox: 'AQ37AUmyTsiUDWpJwneUkl8Aj6GcIJc_IMgK48henDoXrfLMmOUZEp-zskKot7OMzm5TY4xh17bz-aRL'
+          sandbox: 'AQ37AUmyTsiUDWpJwneUkl8Aj6GcIJc_IMgK48henDoXrfLMmOUZEp-zskKot7OMzm5TY4xh17bz-aRL',
+          production: 'AdMTUABdr8blUgWKQSsa5q5AuozSqpmbG2azgGzKfdzYEp1jY-3AJeAZuTY7Wzr3QXZhIGOCd1nT487K'
         },
         payment: function (actions) {
           return actions.payment.create(<%=@transactions%>);
