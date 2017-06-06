@@ -95,8 +95,9 @@
   </div>
 </div>
 <% if !@orderCompleted %>
-  <%= javascript_tag 'data-turbolinks-eval': false do %>
-    document.addEventListener('turbolinks:load',function() {
+  <%= javascript_include_tag 'https://www.paypalobjects.com/api/checkout.js' %>
+  <%= javascript_tag do %>
+
       paypal.Button.render({
         env: 'sandbox',
         style: {
@@ -128,6 +129,5 @@
           });
         }
       }, '#btnPayNow');
-    });
   <% end %>
 <% end %>
