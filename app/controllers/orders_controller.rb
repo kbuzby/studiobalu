@@ -111,7 +111,7 @@ class OrdersController < ApplicationController
     #need to send email to auntjen that an order was placed
     MessageMailer.new_order(@order).deliver
 
-    redirect_to
+    redirect_to order_path(@order)
   end
 
   def shipped
