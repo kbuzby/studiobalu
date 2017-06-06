@@ -94,37 +94,39 @@
     <% end %>
   </div>
 </div>
-<%= javascript_tag do %>
-  document.addEventListener('turbolinks:load',function() {
-    paypal.Button.render({
-      env: 'sandbox',
-      style: {
-        label: 'checkout',
-        size: 'responsive',
-        shape: 'rect',
-        color: 'blue'
-      },
-      commit: true,
-      client: {
-        sandbox: 'AQ37AUmyTsiUDWpJwneUkl8Aj6GcIJc_IMgK48henDoXrfLMmOUZEp-zskKot7OMzm5TY4xh17bz-aRL'
-      },
-      payment: function (actions) {
-        return actions.payment.create(<%=@transactions%>);
-      },
-      onAuthorize: function(data,actions) {
-        return actions.payment.execute().then(function(payment){
-          //payment complete
-          //console.log(payment);
-          var paymentStr = JSON.stringify({'payment':payment});
-          $.ajax({
-            url: '<%=payment_approved_order_url(@order)%>',
-            data: paymentStr,
-            type: 'PATCH',
-            contentType: 'application/json',
-            cache: false
+<% if !@orderCompleted %>
+  <%= javascript_tag do %>
+    document.addEventListener('turbolinks:load',function() {
+      paypal.Button.render({
+        env: 'sandbox',
+        style: {
+          label: 'checkout',
+          size: 'responsive',
+          shape: 'rect',
+          color: 'blue'
+        },
+        commit: true,
+        client: {
+          sandbox: 'AQ37AUmyTsiUDWpJwneUkl8Aj6GcIJc_IMgK48henDoXrfLMmOUZEp-zskKot7OMzm5TY4xh17bz-aRL'
+        },
+        payment: function (actions) {
+          return actions.payment.create(<%=@transactions%>);
+        },
+        onAuthorize: function(data,actions) {
+          return actions.payment.execute().then(function(payment){
+            //payment complete
+            //console.log(payment);
+            var paymentStr = JSON.stringify({'payment':payment});
+            $.ajax({
+              url: '<%=payment_approved_order_url(@order)%>',
+              data: paymentStr,
+              type: 'PATCH',
+              contentType: 'application/json',
+              cache: false
+            });
           });
-        });
-      }
-    }, '#btnPayNow');
-  });
+        }
+      }, '#btnPayNow');
+    });
+  <% end %>
 <% end %>

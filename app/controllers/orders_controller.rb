@@ -104,6 +104,7 @@ class OrdersController < ApplicationController
     @order.transaction_fee = payment[:transactions][0][:related_resources][0][:sale][:transaction_fee][:value]
 
     #update order status
+    @order.order_date = Date.today
     @order.status = 'ordered'
 
     @order.save!
