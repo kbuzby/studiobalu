@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
   skip_before_action :require_login, except: [:manage, :shipped, :completed]
+  layout false, only: [:show, :cart]
 
   require  'paypal-sdk-rest'
   include PayPal::SDK::REST
@@ -52,7 +53,9 @@ class OrdersController < ApplicationController
 
 
   def cart
+
     if !session[:order_id].nil?
+
       render_order(session[:order_id])
     end
   end
@@ -162,6 +165,8 @@ class OrdersController < ApplicationController
   end
 
   def render_order(order_id)
+
+
 
     @order = ::Order.find(order_id)
 
