@@ -1,133 +1,141 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Studio Balu Designs</title>
-    <%= csrf_meta_tags %>
+<div class='panel panel-info'>
 
-    <%= javascript_include_tag 'https://www.paypalobjects.com/api/checkout.js' %>
+  <div class='panel-heading'>
+    <h3 class='panel-title'><%= @cartTitle %></h3>
+  </div>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <script src='/paypal.js?v1'></script>
+  <div class='panel-body'>
 
+    <% if @orderCompleted %>
+      <h1>Order Number: <%= @order.id %></h1>
+      <h3>Status: <%= @order.status.capitalize %></h3>
+    <%end%>
 
-    <meta name='turbolinks-cache-control' content='no-cache'>
-    <meta http-equiv="cache-control" content="max-age=0" />
-    <meta http-equiv="cache-control" content="no-cache" />
-    <meta http-equiv="expires" content="0" />
-    <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
-    <meta http-equiv="pragma" content="no-cache" />
-  </head>
+    <% if !@order.nil? && @orderItems.length > 0%>
+      <div class='row'>
+        <div class='col-lg-12'>
+          <div class='list-group'>
 
-  <body data-no-turbolink>
-
-    <div class="container well main-well">
-
-      <a href="/"><%=image_tag image_url("full-logo.jpg"), style: 'width:100%'%></a>
-      <%= render 'navbar' %>
-
-      <div class='panel panel-info'>
-
-        <div class='panel-heading'>
-          <h3 class='panel-title'><%= @cartTitle %></h3>
-        </div>
-
-        <div class='panel-body'>
-
-          <% if @orderCompleted %>
-            <h1>Order Number: <%= @order.id %></h1>
-            <h3>Status: <%= @order.status.capitalize %></h3>
-          <%end%>
-
-          <% if !@order.nil? && @orderItems.length > 0%>
-            <div class='row'>
-              <div class='col-lg-12'>
-                <div class='list-group'>
-
-                  <% @orderItems.each do |i| %>
-                    <div class='list-group-item'>
-                      <div class='row'>
-                        <div class='col-sm-8'>
-                          <%= i.name %>
-                        </div>
-                        <div class='col-sm-4'>
-                          $<%= '%.2f' % i.price %>
-                          <% if !@orderCompleted %>
-                            <%= link_to 'X', removeFromOrder_product_path(i), class: 'btn btn-danger pull-right', method: :post %>
-                          <% end %>
-                        </div>
-                      </div>
-                    </div>
-                  <% end %>
-                  <div class='list-group-item'>
-                    <div class='row'>
-                      <div class='col-sm-4 pull-right'>
-                        <span class='col-sm-6'>Subtotal: </span>
-                        <span class='col-sm-6'>$<%='%.2f' % @order.subtotal %></span>
-                      </div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4 pull-right'>
-                        <span class='col-sm-6'>Tax: </span>
-                        <span class='col-sm-6'>$<%='%.2f' % @order.tax %></span>
-                      </div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4 pull-right'>
-                        <span class='col-sm-6'>Shipping: </span>
-                        <span class='col-sm-6'>$<%='%.2f' % @order.shipping %></span>
-                      </div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4 pull-right'>
-                        <strong>
-                          <span class='col-sm-6'>Total: </span>
-                          <span class='col-sm-6'>$<%='%.2f' % @order.total %></span>
-                        </strong>
-                      </div>
-                    </div>
+            <% @orderItems.each do |i| %>
+              <div class='list-group-item'>
+                <div class='row'>
+                  <div class='col-sm-8'>
+                    <%= i.name %>
                   </div>
-
-
-                  <br>
-
-                  <% if !@orderCompleted %>
-                    <!-- Create paypal button -->
-                    <div class='row'>
-                      <div class='pull-right'>
-                        <div id='btnPayNow' style='display:inline-block' class='btn'></div>
-                        <input id='transactions' type='hidden' value ='<%= @transactions %>'/>
-                        <input id='redirectURL' type='hidden' value='<%=payment_approved_order_url(@order) %>'/>
-                        <script>renderButton()</script>
-                      </div>
-                    </div><!-- paypal button -->
-                  <% end %>
-
+                  <div class='col-sm-4'>
+                    $<%= '%.2f' % i.price %>
+                    <% if !@orderCompleted %>
+                      <%= link_to 'X', removeFromOrder_product_path(i), class: 'btn btn-danger pull-right', method: :post %>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+            <div class='list-group-item'>
+              <div class='row'>
+                <div class='col-sm-4 pull-right'>
+                  <span class='col-sm-6'>Subtotal: </span>
+                  <span class='col-sm-6'>$<%='%.2f' % @order.subtotal %></span>
+                </div>
+              </div>
+              <div class='row'>
+                <div class='col-sm-4 pull-right'>
+                  <span class='col-sm-6'>Tax: </span>
+                  <span class='col-sm-6'>$<%='%.2f' % @order.tax %></span>
+                </div>
+              </div>
+              <div class='row'>
+                <div class='col-sm-4 pull-right'>
+                  <span class='col-sm-6'>Shipping: </span>
+                  <span class='col-sm-6'>$<%='%.2f' % @order.shipping %></span>
+                </div>
+              </div>
+              <div class='row'>
+                <div class='col-sm-4 pull-right'>
+                  <strong>
+                    <span class='col-sm-6'>Total: </span>
+                    <span class='col-sm-6'>$<%='%.2f' % @order.total %></span>
+                  </strong>
                 </div>
               </div>
             </div>
 
-            <%if @orderCompleted %>
+
+            <br>
+
+            <% if !@orderCompleted %>
+              <!-- Create paypal button -->
               <div class='row'>
-                <div class='col-md-6'>
-                  <h4>Shipping Information</h4>
-                  <p><%=@order.shipping_name%></p>
-                  <p><%=@order.shipping_address1%></p>
-                  <% if !@order.shipping_address2.nil? %>
-                    <p><%=@order.shipping_address2%></p>
-                  <% end %>
-                  <p><%=@order.shipping_city.to_s + ', ' + @order.shipping_state.to_s + ' ' + @order.shipping_zip.to_s %></p>
+                <div class='pull-right'>
+                  <div id='btnPayNow' style='display:inline-block' class='btn'></div>
+                  <input id='transactions' type='hidden' value ='<%= @transactions %>'/>
+                  <input id='redirectURL' type='hidden' value='<%=payment_approved_order_url(@order) %>'/>
+                  <script>
+                  var attached;
+                  if (!attached) {
+                    $(document).on('turbolinks:load', function() {
+                      if ($('#btnPayNow').length) {
+                        paypal.Button.render({
+                          env: "<%= ENV['PAYPAL_ENV']  %>",
+                          style: {
+                            label: 'checkout',
+                            size: 'responsive',
+                            shape: 'rect',
+                            color: 'blue'
+                          },
+                          commit: true,
+                          client: {
+                            sandbox: "<%= ENV['PAYPAL_SANDBOX_KEY'] %>",
+                            production: "<%= ENV['PAYPAL_PRODUCTION_KEY'] %>"
+                          },
+                          payment: function (actions) {
+                            var transactions = '<%= @transactions %>';
+                            //console.log(transactions);
+                            return result = actions.payment.create(JSON.parse(transactions));
+                          },
+                          onAuthorize: function(data,actions) {
+                            return actions.payment.execute().then(function(payment){
+                              //payment complete
+                              //console.log(payment);
+                              var paymentStr = JSON.stringify({'payment':payment});
+                              $.ajax({
+                                url: $("#redirectURL").val(),
+                                data: paymentStr,
+                                type: 'PATCH',
+                                contentType: 'application/json',
+                                cache: false
+                              });
+                            });
+                          }
+                        }, '#btnPayNow');
+                      }
+                    });
+                    attached = true;
+                  }
+                  </script>
                 </div>
-              </div>
+              </div><!-- paypal button -->
             <% end %>
-          <% else %>
-            <h4>Add items to your cart and come back!</h4>
-          <% end %>
+
+          </div>
         </div>
       </div>
 
-    </div>
-
-    <%= render 'footer' %>
-  </body>
-</html>
+      <%if @orderCompleted %>
+        <div class='row'>
+          <div class='col-md-6'>
+            <h4>Shipping Information</h4>
+            <p><%=@order.shipping_name%></p>
+            <p><%=@order.shipping_address1%></p>
+            <% if !@order.shipping_address2.nil? %>
+              <p><%=@order.shipping_address2%></p>
+            <% end %>
+            <p><%=@order.shipping_city.to_s + ', ' + @order.shipping_state.to_s + ' ' + @order.shipping_zip.to_s %></p>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <h4>Add items to your cart and come back!</h4>
+    <% end %>
+  </div>
+</div>
