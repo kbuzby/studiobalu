@@ -10,7 +10,8 @@ set :stage, :staging
 # server 'db.example.com', user: 'deploy', roles: %w{db}
 server 'www.kylebuzby.com', user: 'ruby-deploy', roles: %w{web app}
 
-
+# override deploy to directory
+set :deploy_to, '/home/ruby-deploy/studiobalu'
 
 # role-based syntax
 # ==================
