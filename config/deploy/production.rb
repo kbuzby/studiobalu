@@ -9,7 +9,7 @@ set :stage, :production
 # server 'db.example.com', user: 'deploy', roles: %w{db}
 server '174.138.92.131', user: 'deploy', roles: %w{web app}
 
-
+set :branch, 'released'
 
 # role-based syntax
 # ==================
