@@ -7,6 +7,10 @@ gem 'mini_magick'
 #bootstrap for css
 gem 'bootstrap-sass'
 
+gem 'ed25519', '~> 1.2', '< 2.0'
+gem 'bcrypt_pbkdf', '>= 1.0', ' < 2.0'
+
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
 # Use sqlite3 as the database for Active Record

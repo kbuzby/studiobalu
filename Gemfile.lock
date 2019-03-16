@@ -44,6 +44,7 @@ GEM
     autoprefixer-rails (9.5.0)
       execjs
     bcrypt (3.1.12)
+    bcrypt_pbkdf (1.0.0)
     bindex (0.5.0)
     bootstrap-sass (3.4.1)
       autoprefixer-rails (>= 5.2.1)
@@ -73,6 +74,7 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.5)
     crass (1.0.4)
+    ed25519 (1.2.4)
     erubis (2.7.0)
     execjs (2.7.0)
     ffi (1.10.0)
@@ -200,11 +202,13 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt (~> 3.1.7)
+  bcrypt_pbkdf (>= 1.0, < 2.0)
   bootstrap-sass
   byebug
   capistrano-rails
   carrierwave
   coffee-rails (~> 4.2)
+  ed25519 (~> 1.2, < 2.0)
   jbuilder (~> 2.5)
   jquery-rails
   listen (~> 3.0.5)
