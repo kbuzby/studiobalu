@@ -12,6 +12,8 @@ server 'www.kylebuzby.com', user: 'ruby-deploy', roles: %w{web app}
 
 set :deploy_to, '/home/ruby-deploy/studiobalu'
 
+set :branch, 'staging'
+
 # role-based syntax
 # ==================
 
