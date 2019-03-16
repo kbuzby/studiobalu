@@ -6,6 +6,7 @@ gem 'carrierwave'
 gem 'mini_magick'
 #bootstrap for css
 gem 'bootstrap-sass'
+gem 'sassc', '~> 2.0.1'
 
 gem 'ed25519', '~> 1.2', '< 2.0'
 gem 'bcrypt_pbkdf', '>= 1.0', ' < 2.0'
