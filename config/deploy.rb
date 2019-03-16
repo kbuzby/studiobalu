@@ -8,7 +8,7 @@ set :repo_url, 'git@github.com:kbuzby/studiobalu.git'
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Default deploy_to directory is /var/www/my_app_name
-set :deploy_to, '/home/ruby-deploy/studiobalu'
+set :deploy_to, '/home/deploy/studiobalu'
 
 # Default value for :scm is :git
 # set :scm, :git
